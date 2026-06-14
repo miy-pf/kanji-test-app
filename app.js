@@ -37,6 +37,12 @@
     statWrong: document.querySelector("#stat-wrong"),
     statMisconceptions: document.querySelector("#stat-misconceptions"),
     statRetries: document.querySelector("#stat-retries"),
+    historyRate: document.querySelector("#history-rate"),
+    historyTotal: document.querySelector("#history-total"),
+    historyCorrect: document.querySelector("#history-correct"),
+    historyWrong: document.querySelector("#history-wrong"),
+    historyMisconceptions: document.querySelector("#history-misconceptions"),
+    historyReview: document.querySelector("#history-review"),
     resultMessage: document.querySelector("#result-message"),
     nextQuestion: document.querySelector("#next-question"),
     masteredCount: document.querySelector("#mastered-count")
@@ -356,9 +362,29 @@
     const rate = sessionStats.total
       ? Math.round((sessionStats.correct / sessionStats.total) * 100)
       : 0;
-    const mastered = QUESTIONS.filter(
-      (question) => getQuestionHistory(question.id).mastered
-    ).length;
+    const cumulative = QUESTIONS.reduce((total, question) => {
+      const record = getQuestionHistory(question.id);
+      const legacyUnsure = Number(record.unsure) || 0;
+      const correct = Number(record.correct) || 0;
+      const wrong = (Number(record.wrong) || 0) + legacyUnsure;
+
+      total.correct += correct;
+      total.wrong += wrong;
+      total.misconceptions += Number(record.misconceptions) || 0;
+      total.mastered += record.mastered ? 1 : 0;
+      total.review += record.needsReview || record.misconceptionPending ? 1 : 0;
+      return total;
+    }, {
+      correct: 0,
+      wrong: 0,
+      misconceptions: 0,
+      mastered: 0,
+      review: 0
+    });
+    const cumulativeTotal = cumulative.correct + cumulative.wrong;
+    const cumulativeRate = cumulativeTotal
+      ? Math.round((cumulative.correct / cumulativeTotal) * 100)
+      : 0;
 
     elements.statRate.textContent = `${rate}%`;
     elements.statTotal.textContent = sessionStats.total;
@@ -367,7 +393,13 @@
     elements.statMisconceptions.textContent = sessionStats.misconceptions;
     elements.statRetries.textContent = sessionStats.retries;
     elements.masteredCount.textContent =
-      `習得済み: ${mastered} / ${QUESTIONS.length}問`;
+      `習得済み: ${cumulative.mastered} / ${QUESTIONS.length}問`;
+    elements.historyRate.textContent = `${cumulativeRate}%`;
+    elements.historyTotal.textContent = cumulativeTotal;
+    elements.historyCorrect.textContent = cumulative.correct;
+    elements.historyWrong.textContent = cumulative.wrong;
+    elements.historyMisconceptions.textContent = cumulative.misconceptions;
+    elements.historyReview.textContent = `${cumulative.review}問`;
   }
 
   function showEmptyState(title, message) {

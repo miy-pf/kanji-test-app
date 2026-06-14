@@ -437,6 +437,27 @@ h2 {
   font-weight: 800;
 }
 
+.history-section {
+  margin-top: 1.1rem;
+  padding-top: 1rem;
+  border-top: 3px solid var(--primary);
+}
+
+.history-section h2 {
+  margin-bottom: 0.75rem;
+}
+
+.history-grid div {
+  background: #f7fbf8;
+}
+
+.history-note {
+  margin: 0.75rem 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
 .empty-view {
   padding: 4rem 1rem;
   text-align: center;
