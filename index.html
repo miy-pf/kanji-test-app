@@ -22,6 +22,7 @@
         <div class="mode-buttons" role="group" aria-label="出題モード">
           <button class="mode-button is-selected" data-mode="all" type="button" aria-pressed="true">全問</button>
           <button class="mode-button" data-mode="segment" type="button" aria-pressed="false">10問特訓</button>
+          <button class="mode-button" data-mode="flashcard" type="button" aria-pressed="false">フラッシュカード</button>
           <button class="mode-button" data-mode="priority" type="button" aria-pressed="false">A優先</button>
           <button class="mode-button" data-mode="wrong" type="button" aria-pressed="false">×だけ復習</button>
         </div>
@@ -44,6 +45,27 @@
             <option value="page7:11-20">page7　11〜20番</option>
           </select>
         </div>
+        <div id="flashcard-settings" class="segment-settings" hidden>
+          <label for="flashcard-select">カードの範囲を選ぶ</label>
+          <select id="flashcard-select">
+            <option value="all">全140問</option>
+            <option value="page1:1-10">page1　1〜10番</option>
+            <option value="page1:11-20">page1　11〜20番</option>
+            <option value="page2:1-10">page2　1〜10番</option>
+            <option value="page2:11-20">page2　11〜20番</option>
+            <option value="page3:1-10">page3　1〜10番</option>
+            <option value="page3:11-20">page3　11〜20番</option>
+            <option value="page4:1-10">page4　1〜10番</option>
+            <option value="page4:11-20">page4　11〜20番</option>
+            <option value="page5:1-10">page5　1〜10番</option>
+            <option value="page5:11-20">page5　11〜20番</option>
+            <option value="page6:1-10">page6　1〜10番</option>
+            <option value="page6:11-20">page6　11〜20番</option>
+            <option value="page7:1-10">page7　1〜10番</option>
+            <option value="page7:11-20">page7　11〜20番</option>
+          </select>
+          <p class="setting-note">このモードは今回の結果・累計履歴に反映されません。</p>
+        </div>
         <div class="option-row">
           <label class="check-option">
             <input id="random-order" type="checkbox" checked>
@@ -64,7 +86,7 @@
         </div>
 
         <div id="question-view">
-          <p class="instruction">紙に漢字を書いてから、「書けた」か「わからない」を選ぼう。</p>
+          <p id="study-instruction" class="instruction">紙に漢字を書いてから、「書けた」か「わからない」を選ぼう。</p>
           <p class="question-label">もんだい</p>
           <div id="question-text" class="question-text"></div>
           <p id="question-meta" class="question-meta"></p>
@@ -77,6 +99,11 @@
               わからない
             </button>
           </div>
+          <div id="flashcard-controls" class="flashcard-controls" hidden>
+            <button id="flashcard-show-answer" class="button button-unknown" type="button">
+              答えを見る
+            </button>
+          </div>
 
           <div id="answer-panel" class="answer-panel" hidden>
             <p class="answer-label">答え</p>
@@ -84,7 +111,7 @@
             <p id="answer-reading" class="answer-reading"></p>
             <p class="example-label">漢字にするところ</p>
             <p id="answer-example" class="answer-example"></p>
-            <div class="checklist" aria-label="答え合わせの確認項目">
+            <div id="answer-checklist" class="checklist" aria-label="答え合わせの確認項目">
               <p>紙に書いた字と見くらべよう</p>
               <ul>
                 <li>漢字は合っている？</li>

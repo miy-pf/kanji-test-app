@@ -5,6 +5,7 @@
   const MODE_LABELS = {
     all: "全問モード",
     segment: "10問特訓",
+    flashcard: "フラッシュカード",
     priority: "A優先モード",
     wrong: "×だけ復習モード"
   };
@@ -13,12 +14,15 @@
     modeButtons: [...document.querySelectorAll(".mode-button")],
     segmentSettings: document.querySelector("#segment-settings"),
     segmentSelect: document.querySelector("#segment-select"),
+    flashcardSettings: document.querySelector("#flashcard-settings"),
+    flashcardSelect: document.querySelector("#flashcard-select"),
     randomOrder: document.querySelector("#random-order"),
     reviewFirst: document.querySelector("#review-first"),
     startSession: document.querySelector("#start-session"),
     resetHistory: document.querySelector("#reset-history"),
     modeLabel: document.querySelector("#mode-label"),
     progressLabel: document.querySelector("#progress-label"),
+    studyInstruction: document.querySelector("#study-instruction"),
     questionView: document.querySelector("#question-view"),
     emptyView: document.querySelector("#empty-view"),
     emptyTitle: document.querySelector("#empty-title"),
@@ -28,10 +32,13 @@
     recallControls: document.querySelector("#recall-controls"),
     wroteAnswer: document.querySelector("#wrote-answer"),
     unknownAnswer: document.querySelector("#unknown-answer"),
+    flashcardControls: document.querySelector("#flashcard-controls"),
+    flashcardShowAnswer: document.querySelector("#flashcard-show-answer"),
     answerPanel: document.querySelector("#answer-panel"),
     answerKanji: document.querySelector("#answer-kanji"),
     answerReading: document.querySelector("#answer-reading"),
     answerExample: document.querySelector("#answer-example"),
+    answerChecklist: document.querySelector("#answer-checklist"),
     scoreControls: document.querySelector("#score-controls"),
     scoreButtons: [...document.querySelectorAll(".score-button")],
     statRate: document.querySelector("#stat-rate"),
@@ -129,6 +136,14 @@
 
   function buildQueue() {
     let questions = QUESTIONS.filter((question) => {
+      if (selectedMode === "flashcard") {
+        const segment = getFlashcardSegment();
+        return !segment || (
+          question.page === segment.page &&
+          question.number >= segment.start &&
+          question.number <= segment.end
+        );
+      }
       if (selectedMode === "segment") {
         const segment = getSelectedSegment();
         return question.page === segment.page &&
@@ -148,7 +163,7 @@
       questions = shuffle(questions);
     }
 
-    if (elements.reviewFirst.checked) {
+    if (elements.reviewFirst.checked && selectedMode !== "flashcard") {
       questions.sort((a, b) => reviewWeight(b) - reviewWeight(a));
     }
 
@@ -167,15 +182,32 @@
   }
 
   function getSelectedSegment() {
-    const [page, range] = elements.segmentSelect.value.split(":");
+    return parseSegment(elements.segmentSelect.value);
+  }
+
+  function getFlashcardSegment() {
+    if (elements.flashcardSelect.value === "all") return null;
+    return parseSegment(elements.flashcardSelect.value);
+  }
+
+  function parseSegment(value) {
+    const [page, range] = value.split(":");
     const [start, end] = range.split("-").map(Number);
     return { page, start, end };
   }
 
   function getModeLabel() {
-    if (selectedMode !== "segment") return MODE_LABELS[selectedMode];
-    const segment = getSelectedSegment();
-    return `${segment.page} ${segment.start}〜${segment.end}番・10問特訓`;
+    if (selectedMode === "segment") {
+      const segment = getSelectedSegment();
+      return `${segment.page} ${segment.start}〜${segment.end}番・10問特訓`;
+    }
+    if (selectedMode === "flashcard") {
+      const segment = getFlashcardSegment();
+      return segment
+        ? `${segment.page} ${segment.start}〜${segment.end}番・フラッシュカード`
+        : "全140問・フラッシュカード";
+    }
+    return MODE_LABELS[selectedMode];
   }
 
   function showCurrentQuestion() {
@@ -190,9 +222,12 @@
     }
 
     if (currentIndex >= queue.length) {
+      const isFlashcard = selectedMode === "flashcard";
       showEmptyState(
-        "今回の練習はおわり！",
-        `初回答${sessionStats.total}問、おつかれさまでした。設定を変えるか、もう一度はじめてください。`
+        isFlashcard ? "カードを全部見ました！" : "今回の練習はおわり！",
+        isFlashcard
+          ? `全${queue.length}枚を確認しました。設定を変えるか、もう一度はじめてください。`
+          : `初回答${sessionStats.total}問、おつかれさまでした。設定を変えるか、もう一度はじめてください。`
       );
       elements.progressLabel.textContent = "完了";
       return;
@@ -208,12 +243,19 @@
     elements.questionText.replaceChildren(createMaskedQuestion(question));
     elements.questionMeta.textContent =
       `${question.page}・${question.number}番・優先度 ${question.priority}`;
+    elements.studyInstruction.textContent = selectedMode === "flashcard"
+      ? "問題を見て答えを思い出してから、「答えを見る」を押そう。"
+      : "紙に漢字を書いてから、「書けた」か「わからない」を選ぼう。";
     elements.answerPanel.hidden = true;
-    elements.recallControls.hidden = false;
+    elements.recallControls.hidden = selectedMode === "flashcard";
+    elements.flashcardControls.hidden = selectedMode !== "flashcard";
     elements.scoreControls.hidden = true;
     elements.resultMessage.hidden = true;
     elements.resultMessage.className = "result-message";
+    elements.nextQuestion.textContent =
+      selectedMode === "flashcard" ? "次のカードへ" : "次の問題へ";
     elements.nextQuestion.hidden = true;
+    elements.answerChecklist.hidden = selectedMode === "flashcard";
     elements.answerKanji.textContent = question.answer;
     elements.answerReading.textContent = `読み：${question.reading}`;
     elements.answerExample.replaceChildren(createHighlightedExample(question));
@@ -272,6 +314,13 @@
     } else {
       elements.scoreControls.hidden = false;
     }
+  }
+
+  function revealFlashcardAnswer() {
+    if (selectedMode !== "flashcard" || currentIndex >= queue.length) return;
+    elements.answerPanel.hidden = false;
+    elements.flashcardControls.hidden = true;
+    elements.nextQuestion.hidden = false;
   }
 
   function scoreQuestion(result) {
@@ -450,6 +499,7 @@
         item.setAttribute("aria-pressed", String(isSelected));
       });
       elements.segmentSettings.hidden = selectedMode !== "segment";
+      elements.flashcardSettings.hidden = selectedMode !== "flashcard";
     });
   });
 
@@ -457,6 +507,7 @@
   elements.resetHistory.addEventListener("click", resetHistory);
   elements.wroteAnswer.addEventListener("click", () => revealAnswer("wrote"));
   elements.unknownAnswer.addEventListener("click", () => revealAnswer("unknown"));
+  elements.flashcardShowAnswer.addEventListener("click", revealFlashcardAnswer);
   elements.nextQuestion.addEventListener("click", goToNextQuestion);
   elements.scoreButtons.forEach((button) => {
     button.addEventListener("click", () => scoreQuestion(button.dataset.score));
