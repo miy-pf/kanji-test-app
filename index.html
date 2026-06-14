@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#315c49">
+    <title>かんじ練習カード</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div>
+        <p class="eyebrow">紙に書いておぼえよう</p>
+        <h1>かんじ練習カード</h1>
+      </div>
+      <button id="reset-history" class="button button-quiet" type="button">履歴リセット</button>
+    </header>
+
+    <main class="app-shell">
+      <section class="settings-card" aria-labelledby="settings-title">
+        <h2 id="settings-title">出題の設定</h2>
+        <div class="mode-buttons" role="group" aria-label="出題モード">
+          <button class="mode-button is-selected" data-mode="all" type="button" aria-pressed="true">全問</button>
+          <button class="mode-button" data-mode="priority" type="button" aria-pressed="false">A優先</button>
+          <button class="mode-button" data-mode="wrong" type="button" aria-pressed="false">×だけ復習</button>
+        </div>
+        <div class="option-row">
+          <label class="check-option">
+            <input id="random-order" type="checkbox" checked>
+            <span>順番をランダムにする</span>
+          </label>
+          <label class="check-option">
+            <input id="review-first" type="checkbox" checked>
+            <span>×・思い違いを先に出す</span>
+          </label>
+        </div>
+        <button id="start-session" class="button button-primary" type="button">この設定ではじめる</button>
+      </section>
+
+      <section id="study-area" class="study-card" aria-live="polite">
+        <div class="study-topline">
+          <span id="mode-label" class="mode-label">全問モード</span>
+          <span id="progress-label">1 / 140</span>
+        </div>
+
+        <div id="question-view">
+          <p class="instruction">紙に漢字を書いてから、「書けた」か「わからない」を選ぼう。</p>
+          <p class="question-label">もんだい</p>
+          <div id="question-text" class="question-text"></div>
+          <p id="question-meta" class="question-meta"></p>
+
+          <div id="recall-controls" class="recall-controls" role="group" aria-label="書けたかどうか">
+            <button id="wrote-answer" class="button button-wrote" type="button">
+              書けた
+            </button>
+            <button id="unknown-answer" class="button button-unknown" type="button">
+              わからない
+            </button>
+          </div>
+
+          <div id="answer-panel" class="answer-panel" hidden>
+            <p class="answer-label">答え</p>
+            <div id="answer-kanji" class="answer-kanji"></div>
+            <p id="answer-reading" class="answer-reading"></p>
+            <p class="example-label">漢字にするところ</p>
+            <p id="answer-example" class="answer-example"></p>
+            <div class="checklist" aria-label="答え合わせの確認項目">
+              <p>紙に書いた字と見くらべよう</p>
+              <ul>
+                <li>漢字は合っている？</li>
+                <li>送り仮名は合っている？</li>
+                <li>字の形は正しく書けている？</li>
+              </ul>
+            </div>
+          </div>
+
+          <fieldset id="score-controls" class="score-controls" hidden>
+            <legend>見くらべた結果</legend>
+            <button class="score-button score-correct" data-score="correct" type="button">
+              <strong>○</strong><span>全部合っていた</span>
+            </button>
+            <button class="score-button score-wrong" data-score="wrong" type="button">
+              <strong>×</strong><span>少しでも違った</span>
+            </button>
+          </fieldset>
+
+          <p id="result-message" class="result-message" hidden></p>
+          <button id="next-question" class="button button-primary next-button" type="button" hidden>
+            次の問題へ
+          </button>
+        </div>
+
+        <div id="empty-view" class="empty-view" hidden>
+          <h2 id="empty-title">問題がありません</h2>
+          <p id="empty-message">別のモードを選んでください。</p>
+        </div>
+      </section>
+
+      <section class="stats-card" aria-labelledby="stats-title">
+        <h2 id="stats-title">今回の結果</h2>
+        <div class="stats-grid">
+          <div><span>正答率</span><strong id="stat-rate">0%</strong></div>
+          <div><span>初回答数</span><strong id="stat-total">0</strong></div>
+          <div><span>○</span><strong id="stat-correct">0</strong></div>
+          <div><span>×</span><strong id="stat-wrong">0</strong></div>
+          <div><span>思い違い</span><strong id="stat-misconceptions">0</strong></div>
+          <div><span>今回の再出題</span><strong id="stat-retries">0</strong></div>
+        </div>
+        <p id="mastered-count" class="mastered-count">習得済み: 0 / 140問</p>
+      </section>
+    </main>
+
+    <footer>
+      <p>別の日に2回○になると「習得済み」です。×は3〜5問後と次回の復習に出ます。</p>
+    </footer>
+
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
