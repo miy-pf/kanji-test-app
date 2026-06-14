@@ -68,7 +68,8 @@
 ## GitHub Pagesで公開する方法
 
 1. GitHubで新しいリポジトリを作ります。
-2. `index.html`、`style.css`、`app.js`、`questions.js`、`README.md` をアップロードします。
+2. `index.html`、`style.css`、`app.js`、`questions.js`、`README.md` と
+   `fonts` フォルダをアップロードします。
 3. リポジトリの **Settings** を開きます。
 4. 左側の **Pages** を開きます。
 5. **Build and deployment** のSourceで **Deploy from a branch** を選びます。
@@ -76,3 +77,12 @@
 7. 表示された公開URLへアクセスします。
 
 公開後も学習履歴は各端末・各ブラウザ内に保存され、ほかの利用者とは共有されません。
+
+## フォント
+
+答え表示には、アプリ内の `fonts/KleeOne-Regular.ttf` を使用します。
+そのためSafari、Chrome、iPadなどでも、端末にインストールされたフォントに左右されず
+同じ手書き風の字形で表示されます。フォントの読み込みに外部通信は使いません。
+
+Klee OneはSIL Open Font License 1.1で提供されています。
+ライセンス全文は `fonts/OFL-KleeOne.txt` に収録しています。

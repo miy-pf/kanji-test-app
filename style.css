@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Klee One Local";
+  src: url("fonts/KleeOne-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light;
   --ink: #24302b;
@@ -258,6 +266,7 @@ h2 {
 
 .answer-kanji {
   font-family:
+    "Klee One Local",
     "UD デジタル 教科書体 N-R",
     "UD Digi Kyokasho N-R",
     "游教科書体",
@@ -275,14 +284,16 @@ h2 {
 
 .answer-reading {
   margin-bottom: 1rem;
+  font-family: "Klee One Local", "Hiragino Maru Gothic ProN", sans-serif;
   font-size: 1.4rem;
-  font-weight: 800;
+  font-weight: 400;
 }
 
 .answer-example {
   margin-bottom: 0;
+  font-family: "Klee One Local", "Hiragino Maru Gothic ProN", sans-serif;
   font-size: clamp(1.3rem, 5vw, 2rem);
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .answer-example mark {
