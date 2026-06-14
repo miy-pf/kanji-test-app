@@ -330,7 +330,7 @@
     elements.scoreControls.hidden = true;
 
     if (result === "correct") {
-      showResultMessage("○です。全部合っていることを確認できました。");
+      showResultMessage("○です。答えと合っていることを確認できました。");
     } else {
       showResultMessage(
         "思い違いとして記録しました。3〜5問後にもう一度出ます。",
