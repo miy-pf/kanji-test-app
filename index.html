@@ -21,8 +21,28 @@
         <h2 id="settings-title">出題の設定</h2>
         <div class="mode-buttons" role="group" aria-label="出題モード">
           <button class="mode-button is-selected" data-mode="all" type="button" aria-pressed="true">全問</button>
+          <button class="mode-button" data-mode="segment" type="button" aria-pressed="false">10問特訓</button>
           <button class="mode-button" data-mode="priority" type="button" aria-pressed="false">A優先</button>
           <button class="mode-button" data-mode="wrong" type="button" aria-pressed="false">×だけ復習</button>
+        </div>
+        <div id="segment-settings" class="segment-settings" hidden>
+          <label for="segment-select">特訓する10問を選ぶ</label>
+          <select id="segment-select">
+            <option value="page1:1-10">page1　1〜10番</option>
+            <option value="page1:11-20">page1　11〜20番</option>
+            <option value="page2:1-10">page2　1〜10番</option>
+            <option value="page2:11-20">page2　11〜20番</option>
+            <option value="page3:1-10">page3　1〜10番</option>
+            <option value="page3:11-20">page3　11〜20番</option>
+            <option value="page4:1-10">page4　1〜10番</option>
+            <option value="page4:11-20">page4　11〜20番</option>
+            <option value="page5:1-10">page5　1〜10番</option>
+            <option value="page5:11-20">page5　11〜20番</option>
+            <option value="page6:1-10">page6　1〜10番</option>
+            <option value="page6:11-20">page6　11〜20番</option>
+            <option value="page7:1-10">page7　1〜10番</option>
+            <option value="page7:11-20">page7　11〜20番</option>
+          </select>
         </div>
         <div class="option-row">
           <label class="check-option">

@@ -4,12 +4,15 @@
   const STORAGE_KEY = "kanji-card-history-v1";
   const MODE_LABELS = {
     all: "全問モード",
+    segment: "10問特訓",
     priority: "A優先モード",
     wrong: "×だけ復習モード"
   };
 
   const elements = {
     modeButtons: [...document.querySelectorAll(".mode-button")],
+    segmentSettings: document.querySelector("#segment-settings"),
+    segmentSelect: document.querySelector("#segment-select"),
     randomOrder: document.querySelector("#random-order"),
     reviewFirst: document.querySelector("#review-first"),
     startSession: document.querySelector("#start-session"),
@@ -126,6 +129,12 @@
 
   function buildQueue() {
     let questions = QUESTIONS.filter((question) => {
+      if (selectedMode === "segment") {
+        const segment = getSelectedSegment();
+        return question.page === segment.page &&
+          question.number >= segment.start &&
+          question.number <= segment.end;
+      }
       if (selectedMode === "priority") return question.priority === "A";
       if (selectedMode === "wrong") {
         const record = getQuestionHistory(question.id);
@@ -152,9 +161,21 @@
     currentIntent = null;
     retryIds = new Set();
     sessionStats = createEmptyStats();
-    elements.modeLabel.textContent = MODE_LABELS[selectedMode];
+    elements.modeLabel.textContent = getModeLabel();
     updateStats();
     showCurrentQuestion();
+  }
+
+  function getSelectedSegment() {
+    const [page, range] = elements.segmentSelect.value.split(":");
+    const [start, end] = range.split("-").map(Number);
+    return { page, start, end };
+  }
+
+  function getModeLabel() {
+    if (selectedMode !== "segment") return MODE_LABELS[selectedMode];
+    const segment = getSelectedSegment();
+    return `${segment.page} ${segment.start}〜${segment.end}番・10問特訓`;
   }
 
   function showCurrentQuestion() {
@@ -428,6 +449,7 @@
         item.classList.toggle("is-selected", isSelected);
         item.setAttribute("aria-pressed", String(isSelected));
       });
+      elements.segmentSettings.hidden = selectedMode !== "segment";
     });
   });
 

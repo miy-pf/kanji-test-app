@@ -118,6 +118,38 @@ h2 {
   margin: 0.9rem 0;
 }
 
+.segment-settings {
+  display: grid;
+  grid-template-columns: minmax(150px, auto) minmax(220px, 1fr);
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 0.9rem;
+  padding: 0.8rem;
+  border: 2px solid var(--line);
+  border-radius: 14px;
+  background: #f7fbf8;
+}
+
+.segment-settings[hidden] {
+  display: none;
+}
+
+.segment-settings label {
+  font-weight: 800;
+}
+
+.segment-settings select {
+  width: 100%;
+  min-height: 50px;
+  padding: 0.55rem 0.8rem;
+  border: 2px solid var(--primary);
+  border-radius: 12px;
+  color: var(--ink);
+  background: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
 .mode-button,
 .button {
   min-height: 48px;
@@ -506,6 +538,10 @@ footer p {
 
   .option-row {
     display: grid;
+  }
+
+  .segment-settings {
+    grid-template-columns: 1fr;
   }
 
   .score-controls {
