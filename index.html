@@ -23,6 +23,7 @@
           <button class="mode-button is-selected" data-mode="all" type="button" aria-pressed="true">全問</button>
           <button class="mode-button" data-mode="segment" type="button" aria-pressed="false">10問特訓</button>
           <button class="mode-button" data-mode="flashcard" type="button" aria-pressed="false">フラッシュカード</button>
+          <button class="mode-button" data-mode="test" type="button" aria-pressed="false">テスト</button>
           <button class="mode-button" data-mode="priority" type="button" aria-pressed="false">A優先</button>
           <button class="mode-button" data-mode="wrong" type="button" aria-pressed="false">×だけ復習</button>
         </div>
@@ -66,6 +67,30 @@
           </select>
           <p class="setting-note">このモードは今回の結果・累計履歴に反映されません。</p>
         </div>
+        <div id="test-settings" class="segment-settings" hidden>
+          <label for="test-select">テスト範囲を選ぶ</label>
+          <select id="test-select">
+            <option value="random10">全問題からランダム10問</option>
+            <option value="random20">全問題からランダム20問</option>
+            <option value="all">全140問</option>
+            <option value="priority">A優先35問</option>
+            <option value="page1:1-10">page1　1〜10番</option>
+            <option value="page1:11-20">page1　11〜20番</option>
+            <option value="page2:1-10">page2　1〜10番</option>
+            <option value="page2:11-20">page2　11〜20番</option>
+            <option value="page3:1-10">page3　1〜10番</option>
+            <option value="page3:11-20">page3　11〜20番</option>
+            <option value="page4:1-10">page4　1〜10番</option>
+            <option value="page4:11-20">page4　11〜20番</option>
+            <option value="page5:1-10">page5　1〜10番</option>
+            <option value="page5:11-20">page5　11〜20番</option>
+            <option value="page6:1-10">page6　1〜10番</option>
+            <option value="page6:11-20">page6　11〜20番</option>
+            <option value="page7:1-10">page7　1〜10番</option>
+            <option value="page7:11-20">page7　11〜20番</option>
+          </select>
+          <p class="setting-note">途中の点数は表示せず、最後にまとめて結果を表示します。</p>
+        </div>
         <div class="option-row">
           <label class="check-option">
             <input id="random-order" type="checkbox" checked>
@@ -102,6 +127,11 @@
           <div id="flashcard-controls" class="flashcard-controls" hidden>
             <button id="flashcard-show-answer" class="button button-unknown" type="button">
               答えを見る
+            </button>
+          </div>
+          <div id="test-controls" class="flashcard-controls" hidden>
+            <button id="test-show-answer" class="button button-wrote" type="button">
+              回答した（答えを確認）
             </button>
           </div>
 
@@ -141,9 +171,23 @@
           <h2 id="empty-title">問題がありません</h2>
           <p id="empty-message">別のモードを選んでください。</p>
         </div>
+
+        <div id="test-result-view" class="test-result-view" hidden>
+          <p class="eyebrow">テスト結果</p>
+          <h2 id="test-result-score">0 / 0</h2>
+          <p id="test-result-rate" class="test-result-rate">正答率 0%</p>
+          <p id="test-result-range"></p>
+          <div id="test-wrong-section" class="test-wrong-section">
+            <h3>間違えた問題</h3>
+            <ul id="test-wrong-list"></ul>
+          </div>
+          <button id="review-test-wrongs" class="button button-primary" type="button">
+            間違えた問題を復習する
+          </button>
+        </div>
       </section>
 
-      <section class="stats-card" aria-labelledby="stats-title">
+      <section id="stats-card" class="stats-card" aria-labelledby="stats-title">
         <h2 id="stats-title">今回の結果</h2>
         <div class="stats-grid">
           <div><span>正答率</span><strong id="stat-rate">0%</strong></div>
@@ -166,6 +210,13 @@
             <div><span>復習対象</span><strong id="history-review">0問</strong></div>
           </div>
           <p class="history-note">ページを更新しても、この欄は保存されます。</p>
+        </div>
+
+        <div class="history-section" aria-labelledby="test-history-title">
+          <h2 id="test-history-title">テスト履歴</h2>
+          <ol id="test-history-list" class="test-history-list">
+            <li>まだテスト履歴はありません。</li>
+          </ol>
         </div>
       </section>
     </main>

@@ -2,10 +2,13 @@
   "use strict";
 
   const STORAGE_KEY = "kanji-card-history-v1";
+  const TEST_STORAGE_KEY = "kanji-card-test-history-v1";
   const MODE_LABELS = {
     all: "全問モード",
     segment: "10問特訓",
     flashcard: "フラッシュカード",
+    test: "テストモード",
+    testReview: "テストの間違い復習",
     priority: "A優先モード",
     wrong: "×だけ復習モード"
   };
@@ -16,6 +19,8 @@
     segmentSelect: document.querySelector("#segment-select"),
     flashcardSettings: document.querySelector("#flashcard-settings"),
     flashcardSelect: document.querySelector("#flashcard-select"),
+    testSettings: document.querySelector("#test-settings"),
+    testSelect: document.querySelector("#test-select"),
     randomOrder: document.querySelector("#random-order"),
     reviewFirst: document.querySelector("#review-first"),
     startSession: document.querySelector("#start-session"),
@@ -34,6 +39,8 @@
     unknownAnswer: document.querySelector("#unknown-answer"),
     flashcardControls: document.querySelector("#flashcard-controls"),
     flashcardShowAnswer: document.querySelector("#flashcard-show-answer"),
+    testControls: document.querySelector("#test-controls"),
+    testShowAnswer: document.querySelector("#test-show-answer"),
     answerPanel: document.querySelector("#answer-panel"),
     answerKanji: document.querySelector("#answer-kanji"),
     answerReading: document.querySelector("#answer-reading"),
@@ -55,16 +62,29 @@
     historyReview: document.querySelector("#history-review"),
     resultMessage: document.querySelector("#result-message"),
     nextQuestion: document.querySelector("#next-question"),
-    masteredCount: document.querySelector("#mastered-count")
+    masteredCount: document.querySelector("#mastered-count"),
+    statsCard: document.querySelector("#stats-card"),
+    testResultView: document.querySelector("#test-result-view"),
+    testResultScore: document.querySelector("#test-result-score"),
+    testResultRate: document.querySelector("#test-result-rate"),
+    testResultRange: document.querySelector("#test-result-range"),
+    testWrongSection: document.querySelector("#test-wrong-section"),
+    testWrongList: document.querySelector("#test-wrong-list"),
+    reviewTestWrongs: document.querySelector("#review-test-wrongs"),
+    testHistoryList: document.querySelector("#test-history-list")
   };
 
   let selectedMode = "all";
   let history = loadHistory();
+  let testHistory = loadTestHistory();
   let queue = [];
   let currentIndex = 0;
   let currentIntent = null;
   let retryIds = new Set();
   let sessionStats = createEmptyStats();
+  let testAnswers = [];
+  let lastTestWrongQuestions = [];
+  let activeTestRangeLabel = "";
 
   function createEmptyStats() {
     return { total: 0, correct: 0, wrong: 0, misconceptions: 0, retries: 0 };
@@ -85,6 +105,24 @@
       localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
     } catch (error) {
       console.warn("学習履歴を保存できませんでした。", error);
+    }
+  }
+
+  function loadTestHistory() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(TEST_STORAGE_KEY));
+      return Array.isArray(saved) ? saved : [];
+    } catch (error) {
+      console.warn("テスト履歴を読み込めませんでした。", error);
+      return [];
+    }
+  }
+
+  function saveTestHistory() {
+    try {
+      localStorage.setItem(TEST_STORAGE_KEY, JSON.stringify(testHistory));
+    } catch (error) {
+      console.warn("テスト履歴を保存できませんでした。", error);
     }
   }
 
@@ -135,6 +173,9 @@
   }
 
   function buildQueue() {
+    if (selectedMode === "test") {
+      return buildTestQuestions().map((question) => ({ question, isRetry: false }));
+    }
     let questions = QUESTIONS.filter((question) => {
       if (selectedMode === "flashcard") {
         const segment = getFlashcardSegment();
@@ -163,11 +204,34 @@
       questions = shuffle(questions);
     }
 
-    if (elements.reviewFirst.checked && selectedMode !== "flashcard") {
+    if (elements.reviewFirst.checked &&
+        selectedMode !== "flashcard" &&
+        selectedMode !== "test") {
       questions.sort((a, b) => reviewWeight(b) - reviewWeight(a));
     }
 
     return questions.map((question) => ({ question, isRetry: false }));
+  }
+
+  function buildTestQuestions() {
+    const value = elements.testSelect.value;
+    if (value === "random10") return shuffle(QUESTIONS).slice(0, 10);
+    if (value === "random20") return shuffle(QUESTIONS).slice(0, 20);
+
+    let questions;
+    if (value === "all") {
+      questions = [...QUESTIONS];
+    } else if (value === "priority") {
+      questions = QUESTIONS.filter((question) => question.priority === "A");
+    } else {
+      const segment = parseSegment(value);
+      questions = QUESTIONS.filter((question) =>
+        question.page === segment.page &&
+        question.number >= segment.start &&
+        question.number <= segment.end
+      );
+    }
+    return elements.randomOrder.checked ? shuffle(questions) : questions;
   }
 
   function startSession() {
@@ -176,6 +240,11 @@
     currentIntent = null;
     retryIds = new Set();
     sessionStats = createEmptyStats();
+    testAnswers = [];
+    lastTestWrongQuestions = [];
+    activeTestRangeLabel = selectedMode === "test" ? getTestRangeLabel() : "";
+    elements.testResultView.hidden = true;
+    elements.statsCard.hidden = selectedMode === "test";
     elements.modeLabel.textContent = getModeLabel();
     updateStats();
     showCurrentQuestion();
@@ -207,7 +276,18 @@
         ? `${segment.page} ${segment.start}〜${segment.end}番・フラッシュカード`
         : "全140問・フラッシュカード";
     }
+    if (selectedMode === "test") return getTestRangeLabel();
     return MODE_LABELS[selectedMode];
+  }
+
+  function getTestRangeLabel() {
+    const value = elements.testSelect.value;
+    if (value === "random10") return "ランダム10問・テスト";
+    if (value === "random20") return "ランダム20問・テスト";
+    if (value === "all") return "全140問・テスト";
+    if (value === "priority") return "A優先35問・テスト";
+    const segment = parseSegment(value);
+    return `${segment.page} ${segment.start}〜${segment.end}番・テスト`;
   }
 
   function showCurrentQuestion() {
@@ -222,6 +302,10 @@
     }
 
     if (currentIndex >= queue.length) {
+      if (selectedMode === "test") {
+        finishTest();
+        return;
+      }
       const isFlashcard = selectedMode === "flashcard";
       showEmptyState(
         isFlashcard ? "カードを全部見ました！" : "今回の練習はおわり！",
@@ -243,17 +327,25 @@
     elements.questionText.replaceChildren(createMaskedQuestion(question));
     elements.questionMeta.textContent =
       `${question.page}・${question.number}番・優先度 ${question.priority}`;
-    elements.studyInstruction.textContent = selectedMode === "flashcard"
-      ? "問題を見て答えを思い出してから、「答えを見る」を押そう。"
-      : "紙に漢字を書いてから、「書けた」か「わからない」を選ぼう。";
+    elements.studyInstruction.textContent =
+      selectedMode === "flashcard"
+        ? "問題を見て答えを思い出してから、「答えを見る」を押そう。"
+        : selectedMode === "test"
+          ? "紙に答えを書いてから、「回答した」を押そう。途中の点数は表示されません。"
+          : "紙に漢字を書いてから、「書けた」か「わからない」を選ぼう。";
     elements.answerPanel.hidden = true;
-    elements.recallControls.hidden = selectedMode === "flashcard";
+    elements.recallControls.hidden =
+      selectedMode === "flashcard" || selectedMode === "test";
     elements.flashcardControls.hidden = selectedMode !== "flashcard";
+    elements.testControls.hidden = selectedMode !== "test";
     elements.scoreControls.hidden = true;
     elements.resultMessage.hidden = true;
     elements.resultMessage.className = "result-message";
-    elements.nextQuestion.textContent =
-      selectedMode === "flashcard" ? "次のカードへ" : "次の問題へ";
+    elements.nextQuestion.textContent = selectedMode === "flashcard"
+      ? "次のカードへ"
+      : selectedMode === "test"
+        ? "次の問題へ"
+        : "次の問題へ";
     elements.nextQuestion.hidden = true;
     elements.answerChecklist.hidden = selectedMode === "flashcard";
     elements.answerKanji.textContent = question.answer;
@@ -323,7 +415,19 @@
     elements.nextQuestion.hidden = false;
   }
 
+  function revealTestAnswer() {
+    if (selectedMode !== "test" || currentIndex >= queue.length) return;
+    currentIntent = "test";
+    elements.answerPanel.hidden = false;
+    elements.testControls.hidden = true;
+    elements.scoreControls.hidden = false;
+  }
+
   function scoreQuestion(result) {
+    if (selectedMode === "test") {
+      scoreTestQuestion(result);
+      return;
+    }
     if (currentIntent !== "wrote") return;
     recordResult(result, currentIntent);
     currentIntent = "completed";
@@ -338,6 +442,81 @@
       );
     }
     elements.nextQuestion.hidden = false;
+  }
+
+  function scoreTestQuestion(result) {
+    if (currentIntent !== "test" || currentIndex >= queue.length) return;
+    const question = queue[currentIndex].question;
+    testAnswers.push({ question, result });
+    currentIntent = "completed";
+    elements.scoreControls.hidden = true;
+    elements.answerPanel.hidden = true;
+    elements.nextQuestion.hidden = false;
+
+    if (result === "wrong") {
+      const record = getQuestionHistory(question.id);
+      record.needsReview = true;
+      record.errorDate = getLocalDateKey();
+      record.testWrongCount = (Number(record.testWrongCount) || 0) + 1;
+      record.lastTestWrongAt = new Date().toISOString();
+      history[question.id] = record;
+      saveHistory();
+    }
+  }
+
+  function finishTest() {
+    const correct = testAnswers.filter((answer) => answer.result === "correct").length;
+    const wrongAnswers = testAnswers.filter((answer) => answer.result === "wrong");
+    const total = testAnswers.length;
+    const rate = total ? Math.round((correct / total) * 100) : 0;
+    const range = activeTestRangeLabel.replace("・テスト", "");
+    lastTestWrongQuestions = wrongAnswers.map((answer) => answer.question);
+
+    testHistory.unshift({
+      completedAt: new Date().toISOString(),
+      range,
+      total,
+      correct,
+      wrong: wrongAnswers.length,
+      rate,
+      wrongIds: lastTestWrongQuestions.map((question) => question.id)
+    });
+    testHistory = testHistory.slice(0, 50);
+    saveTestHistory();
+
+    elements.questionView.hidden = true;
+    elements.emptyView.hidden = true;
+    elements.testResultView.hidden = false;
+    elements.testResultScore.textContent = `${correct} / ${total}`;
+    elements.testResultRate.textContent = `正答率 ${rate}%`;
+    elements.testResultRange.textContent = range;
+    elements.testWrongList.replaceChildren(
+      ...lastTestWrongQuestions.map((question) => {
+        const item = document.createElement("li");
+        item.textContent =
+          `${question.page} ${question.number}番：${question.question}（答え：${question.answer}）`;
+        return item;
+      })
+    );
+    elements.testWrongSection.hidden = wrongAnswers.length === 0;
+    elements.reviewTestWrongs.hidden = wrongAnswers.length === 0;
+    elements.progressLabel.textContent = "完了";
+    renderTestHistory();
+  }
+
+  function startTestWrongReview() {
+    if (lastTestWrongQuestions.length === 0) return;
+    selectedMode = "testReview";
+    queue = lastTestWrongQuestions.map((question) => ({ question, isRetry: false }));
+    currentIndex = 0;
+    currentIntent = null;
+    retryIds = new Set();
+    sessionStats = createEmptyStats();
+    elements.testResultView.hidden = true;
+    elements.statsCard.hidden = false;
+    elements.modeLabel.textContent = MODE_LABELS.testReview;
+    updateStats();
+    showCurrentQuestion();
   }
 
   function recordResult(result, intent) {
@@ -472,6 +651,31 @@
     elements.historyReview.textContent = `${cumulative.review}問`;
   }
 
+  function renderTestHistory() {
+    if (testHistory.length === 0) {
+      const item = document.createElement("li");
+      item.textContent = "まだテスト履歴はありません。";
+      elements.testHistoryList.replaceChildren(item);
+      return;
+    }
+
+    elements.testHistoryList.replaceChildren(
+      ...testHistory.slice(0, 5).map((test) => {
+        const item = document.createElement("li");
+        const date = new Date(test.completedAt).toLocaleString("ja-JP", {
+          year: "numeric",
+          month: "numeric",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit"
+        });
+        item.textContent =
+          `${date}　${test.range}　${test.correct}/${test.total}（${test.rate}%）`;
+        return item;
+      })
+    );
+  }
+
   function showEmptyState(title, message) {
     elements.questionView.hidden = true;
     elements.emptyView.hidden = false;
@@ -481,12 +685,15 @@
 
   function resetHistory() {
     const shouldReset = window.confirm(
-      "○・×、思い違い、復習、習得済みの履歴をすべて消しますか？"
+      "学習履歴・習得済み・テスト履歴をすべて消しますか？"
     );
     if (!shouldReset) return;
 
     history = {};
+    testHistory = [];
     localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(TEST_STORAGE_KEY);
+    renderTestHistory();
     startSession();
   }
 
@@ -500,6 +707,7 @@
       });
       elements.segmentSettings.hidden = selectedMode !== "segment";
       elements.flashcardSettings.hidden = selectedMode !== "flashcard";
+      elements.testSettings.hidden = selectedMode !== "test";
     });
   });
 
@@ -508,11 +716,14 @@
   elements.wroteAnswer.addEventListener("click", () => revealAnswer("wrote"));
   elements.unknownAnswer.addEventListener("click", () => revealAnswer("unknown"));
   elements.flashcardShowAnswer.addEventListener("click", revealFlashcardAnswer);
+  elements.testShowAnswer.addEventListener("click", revealTestAnswer);
+  elements.reviewTestWrongs.addEventListener("click", startTestWrongReview);
   elements.nextQuestion.addEventListener("click", goToNextQuestion);
   elements.scoreButtons.forEach((button) => {
     button.addEventListener("click", () => scoreQuestion(button.dataset.score));
   });
 
   updateStats();
+  renderTestHistory();
   startSession();
 })();
