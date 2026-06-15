@@ -108,10 +108,45 @@ h2 {
 }
 
 .mode-buttons,
+.scope-buttons,
 .option-row {
   display: flex;
   flex-wrap: wrap;
   gap: 0.7rem;
+}
+
+.scope-settings {
+  margin-bottom: 1rem;
+  padding: 0.9rem;
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  background: #f7fbf8;
+}
+
+.scope-settings > p:first-child {
+  margin-bottom: 0.55rem;
+  font-weight: 800;
+}
+
+.scope-settings .setting-note {
+  margin-top: 0.65rem;
+}
+
+.scope-button {
+  flex: 1 1 210px;
+  min-height: 52px;
+  padding: 0.65rem 1rem;
+  border: 2px solid var(--primary);
+  border-radius: 14px;
+  color: var(--primary);
+  background: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.scope-button.is-selected {
+  color: #fff;
+  background: var(--primary);
 }
 
 .option-row {

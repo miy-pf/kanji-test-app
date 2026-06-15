@@ -146,3 +146,1446 @@ const QUESTIONS = [
   { id: 139, page: "page7", number: 19, question: "にもつを発送する", target: "発送", answer: "発送", reading: "はっそう", priority: "B" },
   { id: 140, page: "page7", number: 20, question: "町に住む", target: "住む", answer: "住む", reading: "すむ", priority: "B" }
 ];
+
+const ALL_KANJI_TARGETS = {
+  "1": [
+    {
+      "target": "詩",
+      "answer": "詩",
+      "reading": "し"
+    },
+    {
+      "target": "楽しむ",
+      "answer": "楽しむ",
+      "reading": "たのしむ"
+    }
+  ],
+  "2": [
+    {
+      "target": "言葉",
+      "answer": "言葉",
+      "reading": "ことば"
+    },
+    {
+      "target": "方",
+      "answer": "方",
+      "reading": "かた"
+    }
+  ],
+  "3": [
+    {
+      "target": "学習",
+      "answer": "学習",
+      "reading": "がくしゅう"
+    },
+    {
+      "target": "毎日",
+      "answer": "毎日",
+      "reading": "まいにち"
+    }
+  ],
+  "4": [
+    {
+      "target": "着目",
+      "answer": "着目",
+      "reading": "ちゃくもく"
+    }
+  ],
+  "5": [
+    {
+      "target": "登場",
+      "answer": "登場",
+      "reading": "とうじょう"
+    },
+    {
+      "target": "新しく",
+      "answer": "新しく",
+      "reading": "あたらしく"
+    }
+  ],
+  "6": [
+    {
+      "target": "人物",
+      "answer": "人物",
+      "reading": "じんぶつ"
+    }
+  ],
+  "7": [
+    {
+      "target": "気持ち",
+      "answer": "気持ち",
+      "reading": "きもち"
+    }
+  ],
+  "8": [
+    {
+      "target": "旅",
+      "answer": "旅",
+      "reading": "たび"
+    },
+    {
+      "target": "日記",
+      "answer": "日記",
+      "reading": "にっき"
+    }
+  ],
+  "9": [
+    {
+      "target": "黄金",
+      "answer": "黄金",
+      "reading": "おうごん"
+    }
+  ],
+  "10": [
+    {
+      "target": "始める",
+      "answer": "始める",
+      "reading": "はじめる"
+    },
+    {
+      "target": "話",
+      "answer": "話",
+      "reading": "はなし"
+    }
+  ],
+  "11": [
+    {
+      "target": "白一色",
+      "answer": "白一色",
+      "reading": "しろいっしょく"
+    },
+    {
+      "target": "山",
+      "answer": "山",
+      "reading": "やま"
+    }
+  ],
+  "12": [
+    {
+      "target": "こう葉",
+      "answer": "紅葉",
+      "reading": "こうよう"
+    },
+    {
+      "target": "赤く",
+      "answer": "赤く",
+      "reading": "あかく"
+    },
+    {
+      "target": "木",
+      "answer": "木",
+      "reading": "き"
+    }
+  ],
+  "13": [
+    {
+      "target": "習う",
+      "answer": "習う",
+      "reading": "ならう"
+    }
+  ],
+  "14": [
+    {
+      "target": "着る",
+      "answer": "着る",
+      "reading": "きる"
+    }
+  ],
+  "15": [
+    {
+      "target": "登る",
+      "answer": "登る",
+      "reading": "のぼる"
+    },
+    {
+      "target": "山",
+      "answer": "山",
+      "reading": "やま"
+    }
+  ],
+  "16": [
+    {
+      "target": "たから物",
+      "answer": "宝物",
+      "reading": "たからもの"
+    }
+  ],
+  "17": [
+    {
+      "target": "所持",
+      "answer": "所持",
+      "reading": "しょじ"
+    },
+    {
+      "target": "本",
+      "answer": "本",
+      "reading": "ほん"
+    }
+  ],
+  "18": [
+    {
+      "target": "旅行",
+      "answer": "旅行",
+      "reading": "りょこう"
+    }
+  ],
+  "19": [
+    {
+      "target": "年始",
+      "answer": "年始",
+      "reading": "ねんし"
+    }
+  ],
+  "20": [
+    {
+      "target": "着く",
+      "answer": "着く",
+      "reading": "つく"
+    },
+    {
+      "target": "家",
+      "answer": "家",
+      "reading": "いえ"
+    }
+  ],
+  "21": [
+    {
+      "target": "進む",
+      "answer": "進む",
+      "reading": "すすむ"
+    },
+    {
+      "target": "前",
+      "answer": "前",
+      "reading": "まえ"
+    }
+  ],
+  "22": [
+    {
+      "target": "今日",
+      "answer": "今日",
+      "reading": "きょう"
+    }
+  ],
+  "23": [
+    {
+      "target": "動く",
+      "answer": "動く",
+      "reading": "うごく"
+    },
+    {
+      "target": "体",
+      "answer": "体",
+      "reading": "からだ"
+    }
+  ],
+  "24": [
+    {
+      "target": "深い",
+      "answer": "深い",
+      "reading": "ふかい"
+    },
+    {
+      "target": "海",
+      "answer": "海",
+      "reading": "うみ"
+    }
+  ],
+  "25": [
+    {
+      "target": "様子",
+      "answer": "様子",
+      "reading": "ようす"
+    },
+    {
+      "target": "母",
+      "answer": "母",
+      "reading": "はは"
+    }
+  ],
+  "26": [
+    {
+      "target": "一人",
+      "answer": "一人",
+      "reading": "ひとり"
+    },
+    {
+      "target": "電車",
+      "answer": "電車",
+      "reading": "でんしゃ"
+    }
+  ],
+  "27": [
+    {
+      "target": "空気",
+      "answer": "空気",
+      "reading": "くうき"
+    },
+    {
+      "target": "入れる",
+      "answer": "入れる",
+      "reading": "いれる"
+    }
+  ],
+  "28": [
+    {
+      "target": "物語",
+      "answer": "物語",
+      "reading": "ものがたり"
+    },
+    {
+      "target": "書く",
+      "answer": "書く",
+      "reading": "かく"
+    }
+  ],
+  "29": [
+    {
+      "target": "場面",
+      "answer": "場面",
+      "reading": "ばめん"
+    }
+  ],
+  "30": [
+    {
+      "target": "二人",
+      "answer": "二人",
+      "reading": "ふたり"
+    },
+    {
+      "target": "出かける",
+      "answer": "出かける",
+      "reading": "でかける"
+    }
+  ],
+  "31": [
+    {
+      "target": "顔",
+      "answer": "顔",
+      "reading": "かお"
+    },
+    {
+      "target": "自分",
+      "answer": "自分",
+      "reading": "じぶん"
+    }
+  ],
+  "32": [
+    {
+      "target": "声",
+      "answer": "声",
+      "reading": "こえ"
+    },
+    {
+      "target": "大きな",
+      "answer": "大きな",
+      "reading": "おおきな"
+    },
+    {
+      "target": "出す",
+      "answer": "出す",
+      "reading": "だす"
+    }
+  ],
+  "33": [
+    {
+      "target": "答える",
+      "answer": "答える",
+      "reading": "こたえる"
+    }
+  ],
+  "34": [
+    {
+      "target": "弱い",
+      "answer": "弱い",
+      "reading": "よわい"
+    },
+    {
+      "target": "力",
+      "answer": "力",
+      "reading": "ちから"
+    }
+  ],
+  "35": [
+    {
+      "target": "近く",
+      "answer": "近く",
+      "reading": "ちかく"
+    },
+    {
+      "target": "店",
+      "answer": "店",
+      "reading": "みせ"
+    },
+    {
+      "target": "行く",
+      "answer": "行く",
+      "reading": "いく"
+    }
+  ],
+  "36": [
+    {
+      "target": "思い出す",
+      "answer": "思い出す",
+      "reading": "おもいだす"
+    }
+  ],
+  "37": [
+    {
+      "target": "行進",
+      "answer": "行進",
+      "reading": "こうしん"
+    },
+    {
+      "target": "校",
+      "answer": "校",
+      "reading": "こう"
+    }
+  ],
+  "38": [
+    {
+      "target": "活動",
+      "answer": "活動",
+      "reading": "かつどう"
+    }
+  ],
+  "39": [
+    {
+      "target": "水深",
+      "answer": "水深",
+      "reading": "すいしん"
+    },
+    {
+      "target": "池",
+      "answer": "池",
+      "reading": "いけ"
+    }
+  ],
+  "40": [
+    {
+      "target": "様",
+      "answer": "様",
+      "reading": "さま"
+    }
+  ],
+  "41": [
+    {
+      "target": "図書館",
+      "answer": "図書館",
+      "reading": "としょかん"
+    },
+    {
+      "target": "本",
+      "answer": "本",
+      "reading": "ほん"
+    }
+  ],
+  "42": [
+    {
+      "target": "番号",
+      "answer": "番号",
+      "reading": "ばんごう"
+    }
+  ],
+  "43": [
+    {
+      "target": "調べる",
+      "answer": "調べる",
+      "reading": "しらべる"
+    }
+  ],
+  "44": [
+    {
+      "target": "使う",
+      "answer": "使う",
+      "reading": "つかう"
+    }
+  ],
+  "45": [
+    {
+      "target": "問い",
+      "answer": "問い",
+      "reading": "とい"
+    },
+    {
+      "target": "答え",
+      "answer": "答え",
+      "reading": "こたえ"
+    }
+  ],
+  "46": [
+    {
+      "target": "意味",
+      "answer": "意味",
+      "reading": "いみ"
+    },
+    {
+      "target": "言葉",
+      "answer": "言葉",
+      "reading": "ことば"
+    }
+  ],
+  "47": [
+    {
+      "target": "湖",
+      "answer": "湖",
+      "reading": "みずうみ"
+    },
+    {
+      "target": "見える",
+      "answer": "見える",
+      "reading": "みえる"
+    }
+  ],
+  "48": [
+    {
+      "target": "漢字",
+      "answer": "漢字",
+      "reading": "かんじ"
+    },
+    {
+      "target": "習う",
+      "answer": "習う",
+      "reading": "ならう"
+    }
+  ],
+  "49": [
+    {
+      "target": "自由",
+      "answer": "自由",
+      "reading": "じゆう"
+    },
+    {
+      "target": "話す",
+      "answer": "話す",
+      "reading": "はなす"
+    }
+  ],
+  "50": [
+    {
+      "target": "温かい",
+      "answer": "温かい",
+      "reading": "あたたかい"
+    },
+    {
+      "target": "お茶",
+      "answer": "お茶",
+      "reading": "おちゃ"
+    }
+  ],
+  "51": [
+    {
+      "target": "考える",
+      "answer": "考える",
+      "reading": "かんがえる"
+    },
+    {
+      "target": "話",
+      "answer": "話",
+      "reading": "はなし"
+    }
+  ],
+  "52": [
+    {
+      "target": "読む",
+      "answer": "読む",
+      "reading": "よむ"
+    },
+    {
+      "target": "新聞",
+      "answer": "新聞",
+      "reading": "しんぶん"
+    }
+  ],
+  "53": [
+    {
+      "target": "館",
+      "answer": "館",
+      "reading": "やかた"
+    },
+    {
+      "target": "古い",
+      "answer": "古い",
+      "reading": "ふるい"
+    }
+  ],
+  "54": [
+    {
+      "target": "調理",
+      "answer": "調理",
+      "reading": "ちょうり"
+    },
+    {
+      "target": "肉",
+      "answer": "肉",
+      "reading": "にく"
+    }
+  ],
+  "55": [
+    {
+      "target": "使用",
+      "answer": "使用",
+      "reading": "しよう"
+    }
+  ],
+  "56": [
+    {
+      "target": "学問",
+      "answer": "学問",
+      "reading": "がくもん"
+    }
+  ],
+  "57": [
+    {
+      "target": "味わう",
+      "answer": "味わう",
+      "reading": "あじわう"
+    }
+  ],
+  "58": [
+    {
+      "target": "湖水",
+      "answer": "湖水",
+      "reading": "こすい"
+    },
+    {
+      "target": "青く",
+      "answer": "青く",
+      "reading": "あおく"
+    }
+  ],
+  "59": [
+    {
+      "target": "由来",
+      "answer": "由来",
+      "reading": "ゆらい"
+    },
+    {
+      "target": "名前",
+      "answer": "名前",
+      "reading": "なまえ"
+    }
+  ],
+  "60": [
+    {
+      "target": "体温",
+      "answer": "体温",
+      "reading": "たいおん"
+    },
+    {
+      "target": "高い",
+      "answer": "高い",
+      "reading": "たかい"
+    }
+  ],
+  "61": [
+    {
+      "target": "あま酒",
+      "answer": "甘酒",
+      "reading": "あまざけ"
+    }
+  ],
+  "62": [
+    {
+      "target": "問題",
+      "answer": "問題",
+      "reading": "もんだい"
+    },
+    {
+      "target": "答える",
+      "answer": "答える",
+      "reading": "こたえる"
+    }
+  ],
+  "63": [
+    {
+      "target": "新発売",
+      "answer": "新発売",
+      "reading": "しんはつばい"
+    },
+    {
+      "target": "本",
+      "answer": "本",
+      "reading": "ほん"
+    }
+  ],
+  "64": [
+    {
+      "target": "文章",
+      "answer": "文章",
+      "reading": "ぶんしょう"
+    },
+    {
+      "target": "読む",
+      "answer": "読む",
+      "reading": "よむ"
+    }
+  ],
+  "65": [
+    {
+      "target": "平気",
+      "answer": "平気",
+      "reading": "へいき"
+    },
+    {
+      "target": "顔",
+      "answer": "顔",
+      "reading": "かお"
+    }
+  ],
+  "66": [
+    {
+      "target": "決める",
+      "answer": "決める",
+      "reading": "きめる"
+    }
+  ],
+  "67": [
+    {
+      "target": "出来事",
+      "answer": "出来事",
+      "reading": "できごと"
+    },
+    {
+      "target": "今日",
+      "answer": "今日",
+      "reading": "きょう"
+    }
+  ],
+  "68": [
+    {
+      "target": "落とす",
+      "answer": "落とす",
+      "reading": "おとす"
+    }
+  ],
+  "69": [
+    {
+      "target": "相手",
+      "answer": "相手",
+      "reading": "あいて"
+    }
+  ],
+  "70": [
+    {
+      "target": "洋服",
+      "answer": "洋服",
+      "reading": "ようふく"
+    },
+    {
+      "target": "買う",
+      "answer": "買う",
+      "reading": "かう"
+    }
+  ],
+  "71": [
+    {
+      "target": "人形",
+      "answer": "人形",
+      "reading": "にんぎょう"
+    }
+  ],
+  "72": [
+    {
+      "target": "中心",
+      "answer": "中心",
+      "reading": "ちゅうしん"
+    },
+    {
+      "target": "話",
+      "answer": "話",
+      "reading": "はなし"
+    }
+  ],
+  "73": [
+    {
+      "target": "母さん",
+      "answer": "母さん",
+      "reading": "かあさん"
+    },
+    {
+      "target": "出かける",
+      "answer": "出かける",
+      "reading": "でかける"
+    }
+  ],
+  "74": [
+    {
+      "target": "日本酒",
+      "answer": "日本酒",
+      "reading": "にほんしゅ"
+    }
+  ],
+  "75": [
+    {
+      "target": "平たい",
+      "answer": "平たい",
+      "reading": "ひらたい"
+    },
+    {
+      "target": "石",
+      "answer": "石",
+      "reading": "いし"
+    }
+  ],
+  "76": [
+    {
+      "target": "決意",
+      "answer": "決意",
+      "reading": "けつい"
+    }
+  ],
+  "77": [
+    {
+      "target": "用事",
+      "answer": "用事",
+      "reading": "ようじ"
+    }
+  ],
+  "78": [
+    {
+      "target": "落下",
+      "answer": "落下",
+      "reading": "らっか"
+    },
+    {
+      "target": "岩",
+      "answer": "岩",
+      "reading": "いわ"
+    }
+  ],
+  "79": [
+    {
+      "target": "手相",
+      "answer": "手相",
+      "reading": "てそう"
+    },
+    {
+      "target": "見る",
+      "answer": "見る",
+      "reading": "みる"
+    }
+  ],
+  "80": [
+    {
+      "target": "平ら",
+      "answer": "平ら",
+      "reading": "たいら"
+    },
+    {
+      "target": "道",
+      "answer": "道",
+      "reading": "みち"
+    }
+  ],
+  "81": [
+    {
+      "target": "次",
+      "answer": "次",
+      "reading": "つぎ"
+    },
+    {
+      "target": "月曜日",
+      "answer": "月曜日",
+      "reading": "げつようび"
+    }
+  ],
+  "82": [
+    {
+      "target": "所",
+      "answer": "所",
+      "reading": "ところ"
+    },
+    {
+      "target": "広い",
+      "answer": "広い",
+      "reading": "ひろい"
+    }
+  ],
+  "83": [
+    {
+      "target": "県道",
+      "answer": "県道",
+      "reading": "けんどう"
+    },
+    {
+      "target": "店",
+      "answer": "店",
+      "reading": "みせ"
+    }
+  ],
+  "84": [
+    {
+      "target": "有名",
+      "answer": "有名",
+      "reading": "ゆうめい"
+    },
+    {
+      "target": "人",
+      "answer": "人",
+      "reading": "ひと"
+    }
+  ],
+  "85": [
+    {
+      "target": "氷",
+      "answer": "氷",
+      "reading": "こおり"
+    }
+  ],
+  "86": [
+    {
+      "target": "六十秒",
+      "answer": "六十秒",
+      "reading": "ろくじゅうびょう"
+    },
+    {
+      "target": "数える",
+      "answer": "数える",
+      "reading": "かぞえる"
+    }
+  ],
+  "87": [
+    {
+      "target": "農家",
+      "answer": "農家",
+      "reading": "のうか"
+    },
+    {
+      "target": "人",
+      "answer": "人",
+      "reading": "ひと"
+    }
+  ],
+  "88": [
+    {
+      "target": "仕事",
+      "answer": "仕事",
+      "reading": "しごと"
+    }
+  ],
+  "89": [
+    {
+      "target": "野球",
+      "answer": "野球",
+      "reading": "やきゅう"
+    }
+  ],
+  "90": [
+    {
+      "target": "局",
+      "answer": "局",
+      "reading": "きょく"
+    },
+    {
+      "target": "前",
+      "answer": "前",
+      "reading": "まえ"
+    }
+  ],
+  "91": [
+    {
+      "target": "朝食",
+      "answer": "朝食",
+      "reading": "ちょうしょく"
+    }
+  ],
+  "92": [
+    {
+      "target": "早朝",
+      "answer": "早朝",
+      "reading": "そうちょう"
+    }
+  ],
+  "93": [
+    {
+      "target": "日光",
+      "answer": "日光",
+      "reading": "にっこう"
+    },
+    {
+      "target": "当てる",
+      "answer": "当てる",
+      "reading": "あてる"
+    }
+  ],
+  "94": [
+    {
+      "target": "一分",
+      "answer": "一分",
+      "reading": "いっぷん"
+    }
+  ],
+  "95": [
+    {
+      "target": "次回",
+      "answer": "次回",
+      "reading": "じかい"
+    }
+  ],
+  "96": [
+    {
+      "target": "場所",
+      "answer": "場所",
+      "reading": "ばしょ"
+    },
+    {
+      "target": "時間",
+      "answer": "時間",
+      "reading": "じかん"
+    }
+  ],
+  "97": [
+    {
+      "target": "有る",
+      "answer": "有る",
+      "reading": "ある"
+    },
+    {
+      "target": "お金",
+      "answer": "お金",
+      "reading": "おかね"
+    }
+  ],
+  "98": [
+    {
+      "target": "氷山",
+      "answer": "氷山",
+      "reading": "ひょうざん"
+    },
+    {
+      "target": "大きな",
+      "answer": "大きな",
+      "reading": "おおきな"
+    }
+  ],
+  "99": [
+    {
+      "target": "仕える",
+      "answer": "仕える",
+      "reading": "つかえる"
+    },
+    {
+      "target": "王",
+      "answer": "王",
+      "reading": "おう"
+    }
+  ],
+  "100": [
+    {
+      "target": "球",
+      "answer": "球",
+      "reading": "たま"
+    }
+  ],
+  "101": [
+    {
+      "target": "全体",
+      "answer": "全体",
+      "reading": "ぜんたい"
+    },
+    {
+      "target": "数",
+      "answer": "数",
+      "reading": "かず"
+    }
+  ],
+  "102": [
+    {
+      "target": "遊び",
+      "answer": "遊び",
+      "reading": "あそび"
+    }
+  ],
+  "103": [
+    {
+      "target": "発見",
+      "answer": "発見",
+      "reading": "はっけん"
+    },
+    {
+      "target": "新しい",
+      "answer": "新しい",
+      "reading": "あたらしい"
+    }
+  ],
+  "104": [
+    {
+      "target": "表す",
+      "answer": "表す",
+      "reading": "あらわす"
+    },
+    {
+      "target": "考え",
+      "answer": "考え",
+      "reading": "かんがえ"
+    }
+  ],
+  "105": [
+    {
+      "target": "昔",
+      "answer": "昔",
+      "reading": "むかし"
+    },
+    {
+      "target": "歌",
+      "answer": "歌",
+      "reading": "うた"
+    }
+  ],
+  "106": [
+    {
+      "target": "世界中",
+      "answer": "世界中",
+      "reading": "せかいじゅう"
+    },
+    {
+      "target": "国",
+      "answer": "国",
+      "reading": "くに"
+    }
+  ],
+  "107": [
+    {
+      "target": "速さ",
+      "answer": "速さ",
+      "reading": "はやさ"
+    },
+    {
+      "target": "動く",
+      "answer": "動く",
+      "reading": "うごく"
+    }
+  ],
+  "108": [
+    {
+      "target": "横",
+      "answer": "横",
+      "reading": "よこ"
+    },
+    {
+      "target": "長",
+      "answer": "長",
+      "reading": "なが"
+    }
+  ],
+  "109": [
+    {
+      "target": "指",
+      "answer": "指",
+      "reading": "ゆび"
+    }
+  ],
+  "110": [
+    {
+      "target": "上手",
+      "answer": "上手",
+      "reading": "じょうず"
+    },
+    {
+      "target": "絵",
+      "answer": "絵",
+      "reading": "え"
+    }
+  ],
+  "111": [
+    {
+      "target": "行う",
+      "answer": "行う",
+      "reading": "おこなう"
+    },
+    {
+      "target": "大会",
+      "answer": "大会",
+      "reading": "たいかい"
+    }
+  ],
+  "112": [
+    {
+      "target": "元",
+      "answer": "元",
+      "reading": "もと"
+    }
+  ],
+  "113": [
+    {
+      "target": "全て",
+      "answer": "全て",
+      "reading": "すべて"
+    },
+    {
+      "target": "話す",
+      "answer": "話す",
+      "reading": "はなす"
+    }
+  ],
+  "114": [
+    {
+      "target": "遊園地",
+      "answer": "遊園地",
+      "reading": "ゆうえんち"
+    },
+    {
+      "target": "近く",
+      "answer": "近く",
+      "reading": "ちかく"
+    }
+  ],
+  "115": [
+    {
+      "target": "表",
+      "answer": "表",
+      "reading": "おもて"
+    }
+  ],
+  "116": [
+    {
+      "target": "世",
+      "answer": "世",
+      "reading": "よ"
+    },
+    {
+      "target": "中",
+      "answer": "中",
+      "reading": "なか"
+    }
+  ],
+  "117": [
+    {
+      "target": "時速",
+      "answer": "時速",
+      "reading": "じそく"
+    },
+    {
+      "target": "五",
+      "answer": "五",
+      "reading": "ご"
+    }
+  ],
+  "118": [
+    {
+      "target": "横",
+      "answer": "横",
+      "reading": "おう"
+    },
+    {
+      "target": "歩道",
+      "answer": "歩道",
+      "reading": "ほどう"
+    }
+  ],
+  "119": [
+    {
+      "target": "指す",
+      "answer": "指す",
+      "reading": "さす"
+    },
+    {
+      "target": "北",
+      "answer": "北",
+      "reading": "きた"
+    },
+    {
+      "target": "方角",
+      "answer": "方角",
+      "reading": "ほうがく"
+    }
+  ],
+  "120": [
+    {
+      "target": "発表",
+      "answer": "発表",
+      "reading": "はっぴょう"
+    },
+    {
+      "target": "考え",
+      "answer": "考え",
+      "reading": "かんがえ"
+    }
+  ],
+  "121": [
+    {
+      "target": "鉄",
+      "answer": "鉄",
+      "reading": "てつ"
+    }
+  ],
+  "122": [
+    {
+      "target": "安定",
+      "answer": "安定",
+      "reading": "あんてい"
+    },
+    {
+      "target": "生活",
+      "answer": "生活",
+      "reading": "せいかつ"
+    }
+  ],
+  "123": [
+    {
+      "target": "運動会",
+      "answer": "運動会",
+      "reading": "うんどうかい"
+    },
+    {
+      "target": "出る",
+      "answer": "出る",
+      "reading": "でる"
+    }
+  ],
+  "124": [
+    {
+      "target": "予定",
+      "answer": "予定",
+      "reading": "よてい"
+    },
+    {
+      "target": "立てる",
+      "answer": "立てる",
+      "reading": "たてる"
+    }
+  ],
+  "125": [
+    {
+      "target": "一日",
+      "answer": "一日",
+      "reading": "ついたち"
+    },
+    {
+      "target": "六月",
+      "answer": "六月",
+      "reading": "ろくがつ"
+    }
+  ],
+  "126": [
+    {
+      "target": "走",
+      "answer": "走",
+      "reading": "そう"
+    },
+    {
+      "target": "八十",
+      "answer": "八十",
+      "reading": "はちじゅう"
+    }
+  ],
+  "127": [
+    {
+      "target": "通う",
+      "answer": "通う",
+      "reading": "かよう"
+    },
+    {
+      "target": "学校",
+      "answer": "学校",
+      "reading": "がっこう"
+    }
+  ],
+  "128": [
+    {
+      "target": "送る",
+      "answer": "送る",
+      "reading": "おくる"
+    }
+  ],
+  "129": [
+    {
+      "target": "住所",
+      "answer": "住所",
+      "reading": "じゅうしょ"
+    },
+    {
+      "target": "あて名",
+      "answer": "あて名",
+      "reading": "あてな"
+    }
+  ],
+  "130": [
+    {
+      "target": "安い",
+      "answer": "安い",
+      "reading": "やすい"
+    }
+  ],
+  "131": [
+    {
+      "target": "使う",
+      "answer": "使う",
+      "reading": "つかう"
+    }
+  ],
+  "132": [
+    {
+      "target": "回す",
+      "answer": "回す",
+      "reading": "まわす"
+    }
+  ],
+  "133": [
+    {
+      "target": "遊ぶ",
+      "answer": "遊ぶ",
+      "reading": "あそぶ"
+    }
+  ],
+  "134": [
+    {
+      "target": "様子",
+      "answer": "様子",
+      "reading": "ようす"
+    }
+  ],
+  "135": [
+    {
+      "target": "文章",
+      "answer": "文章",
+      "reading": "ぶんしょう"
+    },
+    {
+      "target": "読む",
+      "answer": "読む",
+      "reading": "よむ"
+    }
+  ],
+  "136": [
+    {
+      "target": "理由",
+      "answer": "理由",
+      "reading": "りゆう"
+    }
+  ],
+  "137": [
+    {
+      "target": "定める",
+      "answer": "定める",
+      "reading": "さだめる"
+    }
+  ],
+  "138": [
+    {
+      "target": "運ぶ",
+      "answer": "運ぶ",
+      "reading": "はこぶ"
+    }
+  ],
+  "139": [
+    {
+      "target": "発送",
+      "answer": "発送",
+      "reading": "はっそう"
+    }
+  ],
+  "140": [
+    {
+      "target": "住む",
+      "answer": "住む",
+      "reading": "すむ"
+    },
+    {
+      "target": "町",
+      "answer": "町",
+      "reading": "まち"
+    }
+  ]
+};

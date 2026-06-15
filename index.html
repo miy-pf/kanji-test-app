@@ -19,6 +19,18 @@
     <main class="app-shell">
       <section class="settings-card" aria-labelledby="settings-title">
         <h2 id="settings-title">出題の設定</h2>
+        <div class="scope-settings">
+          <p>学習する漢字</p>
+          <div class="scope-buttons" role="group" aria-label="学習する漢字の範囲">
+            <button class="scope-button is-selected" data-scope="new" type="button" aria-pressed="true">
+              新出漢字
+            </button>
+            <button class="scope-button" data-scope="allKanji" type="button" aria-pressed="false">
+              文中のすべての漢字
+            </button>
+          </div>
+          <p id="scope-summary" class="setting-note">指定された新出漢字を中心に、全140問を学習します。</p>
+        </div>
         <div class="mode-buttons" role="group" aria-label="出題モード">
           <button class="mode-button is-selected" data-mode="all" type="button" aria-pressed="true">全問</button>
           <button class="mode-button" data-mode="segment" type="button" aria-pressed="false">10問特訓</button>
@@ -49,7 +61,7 @@
         <div id="flashcard-settings" class="segment-settings" hidden>
           <label for="flashcard-select">カードの範囲を選ぶ</label>
           <select id="flashcard-select">
-            <option value="all">全140問</option>
+            <option id="flashcard-all-option" value="all">全140問</option>
             <option value="page1:1-10">page1　1〜10番</option>
             <option value="page1:11-20">page1　11〜20番</option>
             <option value="page2:1-10">page2　1〜10番</option>
@@ -72,8 +84,8 @@
           <select id="test-select">
             <option value="random10">全問題からランダム10問</option>
             <option value="random20">全問題からランダム20問</option>
-            <option value="all">全140問</option>
-            <option value="priority">A優先35問</option>
+            <option id="test-all-option" value="all">全140問</option>
+            <option id="test-priority-option" value="priority">A優先35問</option>
             <option value="page1:1-10">page1　1〜10番</option>
             <option value="page1:11-20">page1　11〜20番</option>
             <option value="page2:1-10">page2　1〜10番</option>

@@ -14,13 +14,18 @@
   };
 
   const elements = {
+    scopeButtons: [...document.querySelectorAll(".scope-button")],
+    scopeSummary: document.querySelector("#scope-summary"),
     modeButtons: [...document.querySelectorAll(".mode-button")],
     segmentSettings: document.querySelector("#segment-settings"),
     segmentSelect: document.querySelector("#segment-select"),
     flashcardSettings: document.querySelector("#flashcard-settings"),
     flashcardSelect: document.querySelector("#flashcard-select"),
+    flashcardAllOption: document.querySelector("#flashcard-all-option"),
     testSettings: document.querySelector("#test-settings"),
     testSelect: document.querySelector("#test-select"),
+    testAllOption: document.querySelector("#test-all-option"),
+    testPriorityOption: document.querySelector("#test-priority-option"),
     randomOrder: document.querySelector("#random-order"),
     reviewFirst: document.querySelector("#review-first"),
     startSession: document.querySelector("#start-session"),
@@ -74,6 +79,8 @@
     testHistoryList: document.querySelector("#test-history-list")
   };
 
+  const allKanjiQuestions = createAllKanjiQuestions();
+  let selectedScope = "new";
   let selectedMode = "all";
   let history = loadHistory();
   let testHistory = loadTestHistory();
@@ -164,6 +171,31 @@
     return result;
   }
 
+  function createAllKanjiQuestions() {
+    return QUESTIONS.flatMap((baseQuestion) => {
+      const targets = ALL_KANJI_TARGETS[baseQuestion.id] || [{
+        target: baseQuestion.target || baseQuestion.answer,
+        answer: baseQuestion.answer,
+        reading: baseQuestion.reading
+      }];
+
+      return targets.map((target, index) => ({
+        ...baseQuestion,
+        id: index === 0 ? baseQuestion.id : `all-${baseQuestion.id}-${index + 1}`,
+        sourceId: baseQuestion.id,
+        target: target.target,
+        answer: target.answer,
+        reading: target.reading,
+        variantPosition: index + 1,
+        variantCount: targets.length
+      }));
+    });
+  }
+
+  function getQuestionCatalog() {
+    return selectedScope === "allKanji" ? allKanjiQuestions : QUESTIONS;
+  }
+
   function reviewWeight(question) {
     const record = getQuestionHistory(question.id);
     if (record.misconceptionPending) return 4;
@@ -176,7 +208,7 @@
     if (selectedMode === "test") {
       return buildTestQuestions().map((question) => ({ question, isRetry: false }));
     }
-    let questions = QUESTIONS.filter((question) => {
+    let questions = getQuestionCatalog().filter((question) => {
       if (selectedMode === "flashcard") {
         const segment = getFlashcardSegment();
         return !segment || (
@@ -214,18 +246,19 @@
   }
 
   function buildTestQuestions() {
+    const catalog = getQuestionCatalog();
     const value = elements.testSelect.value;
-    if (value === "random10") return shuffle(QUESTIONS).slice(0, 10);
-    if (value === "random20") return shuffle(QUESTIONS).slice(0, 20);
+    if (value === "random10") return shuffle(catalog).slice(0, 10);
+    if (value === "random20") return shuffle(catalog).slice(0, 20);
 
     let questions;
     if (value === "all") {
-      questions = [...QUESTIONS];
+      questions = [...catalog];
     } else if (value === "priority") {
-      questions = QUESTIONS.filter((question) => question.priority === "A");
+      questions = catalog.filter((question) => question.priority === "A");
     } else {
       const segment = parseSegment(value);
-      questions = QUESTIONS.filter((question) =>
+      questions = catalog.filter((question) =>
         question.page === segment.page &&
         question.number >= segment.start &&
         question.number <= segment.end
@@ -268,24 +301,30 @@
   function getModeLabel() {
     if (selectedMode === "segment") {
       const segment = getSelectedSegment();
-      return `${segment.page} ${segment.start}〜${segment.end}番・10問特訓`;
+      return selectedScope === "allKanji"
+        ? `${segment.page} ${segment.start}〜${segment.end}番・10例文の全漢字（${queue.length}問）`
+        : `${segment.page} ${segment.start}〜${segment.end}番・10問特訓`;
     }
     if (selectedMode === "flashcard") {
       const segment = getFlashcardSegment();
       return segment
         ? `${segment.page} ${segment.start}〜${segment.end}番・フラッシュカード`
-        : "全140問・フラッシュカード";
+        : `全${getQuestionCatalog().length}問・フラッシュカード`;
     }
     if (selectedMode === "test") return getTestRangeLabel();
     return MODE_LABELS[selectedMode];
   }
 
   function getTestRangeLabel() {
+    const catalog = getQuestionCatalog();
     const value = elements.testSelect.value;
     if (value === "random10") return "ランダム10問・テスト";
     if (value === "random20") return "ランダム20問・テスト";
-    if (value === "all") return "全140問・テスト";
-    if (value === "priority") return "A優先35問・テスト";
+    if (value === "all") return `全${catalog.length}問・テスト`;
+    if (value === "priority") {
+      const count = catalog.filter((question) => question.priority === "A").length;
+      return `A優先${count}問・テスト`;
+    }
     const segment = parseSegment(value);
     return `${segment.page} ${segment.start}〜${segment.end}番・テスト`;
   }
@@ -326,7 +365,10 @@
       `${currentIndex + 1} / ${queue.length}${entry.isRetry ? "（再出題）" : ""}`;
     elements.questionText.replaceChildren(createMaskedQuestion(question));
     elements.questionMeta.textContent =
-      `${question.page}・${question.number}番・優先度 ${question.priority}`;
+      `${question.page}・${question.number}番・優先度 ${question.priority}` +
+      (question.variantCount > 1
+        ? `・文中漢字 ${question.variantPosition}/${question.variantCount}`
+        : "");
     elements.studyInstruction.textContent =
       selectedMode === "flashcard"
         ? "問題を見て答えを思い出してから、「答えを見る」を押そう。"
@@ -611,7 +653,8 @@
     const rate = sessionStats.total
       ? Math.round((sessionStats.correct / sessionStats.total) * 100)
       : 0;
-    const cumulative = QUESTIONS.reduce((total, question) => {
+    const catalog = getQuestionCatalog();
+    const cumulative = catalog.reduce((total, question) => {
       const record = getQuestionHistory(question.id);
       const legacyUnsure = Number(record.unsure) || 0;
       const correct = Number(record.correct) || 0;
@@ -642,7 +685,7 @@
     elements.statMisconceptions.textContent = sessionStats.misconceptions;
     elements.statRetries.textContent = sessionStats.retries;
     elements.masteredCount.textContent =
-      `習得済み: ${cumulative.mastered} / ${QUESTIONS.length}問`;
+      `習得済み: ${cumulative.mastered} / ${catalog.length}問`;
     elements.historyRate.textContent = `${cumulativeRate}%`;
     elements.historyTotal.textContent = cumulativeTotal;
     elements.historyCorrect.textContent = cumulative.correct;
@@ -674,6 +717,21 @@
         return item;
       })
     );
+  }
+
+  function updateScopeDisplay() {
+    const catalog = getQuestionCatalog();
+    const priorityCount = catalog.filter(
+      (question) => question.priority === "A"
+    ).length;
+
+    elements.scopeSummary.textContent = selectedScope === "allKanji"
+      ? `例文中の漢字語を別々に出題します。全${catalog.length}問です。10問区分は10例文分の漢字語へ展開されます。`
+      : `指定された新出漢字を中心に、全${catalog.length}問を学習します。`;
+    elements.flashcardAllOption.textContent = `全${catalog.length}問`;
+    elements.testAllOption.textContent = `全${catalog.length}問`;
+    elements.testPriorityOption.textContent = `A優先${priorityCount}問`;
+    updateStats();
   }
 
   function showEmptyState(title, message) {
@@ -711,6 +769,18 @@
     });
   });
 
+  elements.scopeButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      selectedScope = button.dataset.scope;
+      elements.scopeButtons.forEach((item) => {
+        const isSelected = item === button;
+        item.classList.toggle("is-selected", isSelected);
+        item.setAttribute("aria-pressed", String(isSelected));
+      });
+      updateScopeDisplay();
+    });
+  });
+
   elements.startSession.addEventListener("click", startSession);
   elements.resetHistory.addEventListener("click", resetHistory);
   elements.wroteAnswer.addEventListener("click", () => revealAnswer("wrote"));
@@ -724,6 +794,7 @@
   });
 
   updateStats();
+  updateScopeDisplay();
   renderTestHistory();
   startSession();
 })();
