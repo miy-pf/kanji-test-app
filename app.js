@@ -7,6 +7,7 @@
     all: "全問モード",
     segment: "10問特訓",
     flashcard: "フラッシュカード",
+    fullSentence: "全文モード",
     test: "テストモード",
     testReview: "テストの間違い復習",
     priority: "A優先モード",
@@ -22,6 +23,9 @@
     flashcardSettings: document.querySelector("#flashcard-settings"),
     flashcardSelect: document.querySelector("#flashcard-select"),
     flashcardAllOption: document.querySelector("#flashcard-all-option"),
+    fullSentenceSettings: document.querySelector("#full-sentence-settings"),
+    fullSentenceSelect: document.querySelector("#full-sentence-select"),
+    fullSentenceAllOption: document.querySelector("#full-sentence-all-option"),
     testSettings: document.querySelector("#test-settings"),
     testSelect: document.querySelector("#test-select"),
     testAllOption: document.querySelector("#test-all-option"),
@@ -80,6 +84,7 @@
   };
 
   const allKanjiQuestions = createAllKanjiQuestions();
+  const fullSentenceQuestions = createFullSentenceQuestions();
   let selectedScope = "new";
   let selectedMode = "all";
   let history = loadHistory();
@@ -173,11 +178,7 @@
 
   function createAllKanjiQuestions() {
     return QUESTIONS.flatMap((baseQuestion) => {
-      const targets = ALL_KANJI_TARGETS[baseQuestion.id] || [{
-        target: baseQuestion.target || baseQuestion.answer,
-        answer: baseQuestion.answer,
-        reading: baseQuestion.reading
-      }];
+      const targets = getTargetsForQuestion(baseQuestion);
 
       return targets.map((target, index) => ({
         ...baseQuestion,
@@ -192,8 +193,95 @@
     });
   }
 
+  function getTargetsForQuestion(baseQuestion) {
+    return ALL_KANJI_TARGETS[baseQuestion.id] || [{
+      target: baseQuestion.target || baseQuestion.answer,
+      answer: baseQuestion.answer,
+      reading: baseQuestion.reading
+    }];
+  }
+
+  function createFullSentenceQuestions() {
+    return QUESTIONS.map((baseQuestion) => {
+      const segments = createSentenceSegments(baseQuestion);
+      const completedSentence = segments.map((segment) =>
+        segment.kind === "target" ? segment.answer : segment.text
+      ).join("");
+      const fullReading = segments.map((segment) =>
+        segment.kind === "target" ? segment.reading : segment.text
+      ).join("");
+
+      return {
+        ...baseQuestion,
+        id: `sentence-${baseQuestion.id}`,
+        sourceId: baseQuestion.id,
+        isFullSentence: true,
+        sentenceSegments: segments,
+        question: completedSentence,
+        answer: completedSentence,
+        reading: fullReading
+      };
+    });
+  }
+
+  function createSentenceSegments(baseQuestion) {
+    const text = baseQuestion.question;
+    const targets = getTargetsForQuestion(baseQuestion)
+      .map((target, index) => ({
+        target: target.target || target.answer,
+        answer: target.answer,
+        reading: target.reading,
+        index
+      }))
+      .map((target) => ({
+        ...target,
+        start: findTargetStart(text, target.target)
+      }))
+      .filter((target) => target.start >= 0)
+      .sort((a, b) => a.start - b.start || b.target.length - a.target.length);
+
+    const segments = [];
+    let cursor = 0;
+
+    targets.forEach((target) => {
+      if (target.start < cursor) return;
+      if (target.start > cursor) {
+        segments.push({
+          kind: "text",
+          text: text.slice(cursor, target.start)
+        });
+      }
+      segments.push({
+        kind: "target",
+        text: target.target,
+        answer: target.answer,
+        reading: target.reading,
+        hasOkurigana: hasOkurigana(target.answer)
+      });
+      cursor = target.start + target.target.length;
+    });
+
+    if (cursor < text.length) {
+      segments.push({ kind: "text", text: text.slice(cursor) });
+    }
+
+    return segments.length > 0 ? segments : [{ kind: "text", text }];
+  }
+
+  function findTargetStart(text, target) {
+    return text.indexOf(target);
+  }
+
+  function hasOkurigana(text) {
+    return /[一-龯々][ぁ-ん]+/.test(text);
+  }
+
   function getQuestionCatalog() {
     return selectedScope === "allKanji" ? allKanjiQuestions : QUESTIONS;
+  }
+
+  function getStatsCatalog() {
+    return selectedMode === "fullSentence" ? fullSentenceQuestions : getQuestionCatalog();
   }
 
   function reviewWeight(question) {
@@ -207,6 +295,9 @@
   function buildQueue() {
     if (selectedMode === "test") {
       return buildTestQuestions().map((question) => ({ question, isRetry: false }));
+    }
+    if (selectedMode === "fullSentence") {
+      return buildFullSentenceQueue().map((question) => ({ question, isRetry: false }));
     }
     let questions = getQuestionCatalog().filter((question) => {
       if (selectedMode === "flashcard") {
@@ -243,6 +334,28 @@
     }
 
     return questions.map((question) => ({ question, isRetry: false }));
+  }
+
+  function buildFullSentenceQueue() {
+    const value = elements.fullSentenceSelect.value;
+    let questions = value === "all"
+      ? [...fullSentenceQuestions]
+      : fullSentenceQuestions.filter((question) => {
+        const segment = parseSegment(value);
+        return question.page === segment.page &&
+          question.number >= segment.start &&
+          question.number <= segment.end;
+      });
+
+    if (elements.randomOrder.checked) {
+      questions = shuffle(questions);
+    }
+
+    if (elements.reviewFirst.checked) {
+      questions.sort((a, b) => reviewWeight(b) - reviewWeight(a));
+    }
+
+    return questions;
   }
 
   function buildTestQuestions() {
@@ -311,8 +424,16 @@
         ? `${segment.page} ${segment.start}〜${segment.end}番・フラッシュカード`
         : `全${getQuestionCatalog().length}問・フラッシュカード`;
     }
+    if (selectedMode === "fullSentence") return getFullSentenceRangeLabel();
     if (selectedMode === "test") return getTestRangeLabel();
     return MODE_LABELS[selectedMode];
+  }
+
+  function getFullSentenceRangeLabel() {
+    const value = elements.fullSentenceSelect.value;
+    if (value === "all") return `全${fullSentenceQuestions.length}文・全文モード`;
+    const segment = parseSegment(value);
+    return `${segment.page} ${segment.start}〜${segment.end}番・全文モード`;
   }
 
   function getTestRangeLabel() {
@@ -363,18 +484,22 @@
     elements.emptyView.hidden = true;
     elements.progressLabel.textContent =
       `${currentIndex + 1} / ${queue.length}${entry.isRetry ? "（再出題）" : ""}`;
+    elements.questionText.classList.toggle("is-full-sentence", Boolean(question.isFullSentence));
     elements.questionText.replaceChildren(createMaskedQuestion(question));
     elements.questionMeta.textContent =
       `${question.page}・${question.number}番・優先度 ${question.priority}` +
       (question.variantCount > 1
         ? `・文中漢字 ${question.variantPosition}/${question.variantCount}`
-        : "");
+        : "") +
+      (question.isFullSentence ? "・全文" : "");
     elements.studyInstruction.textContent =
       selectedMode === "flashcard"
         ? "問題を見て答えを思い出してから、「答えを見る」を押そう。"
         : selectedMode === "test"
           ? "紙に答えを書いてから、「回答した」を押そう。途中の点数は表示されません。"
-          : "紙に漢字を書いてから、「書けた」か「わからない」を選ぼう。";
+          : selectedMode === "fullSentence"
+            ? "読みを見て、文全体を漢字かな交じりで紙に書こう。波線は送り仮名まで気をつける言葉です。"
+            : "紙に漢字を書いてから、「書けた」か「わからない」を選ぼう。";
     elements.answerPanel.hidden = true;
     elements.recallControls.hidden =
       selectedMode === "flashcard" || selectedMode === "test";
@@ -390,12 +515,17 @@
         : "次の問題へ";
     elements.nextQuestion.hidden = true;
     elements.answerChecklist.hidden = selectedMode === "flashcard";
+    elements.answerKanji.classList.toggle("is-sentence-answer", Boolean(question.isFullSentence));
     elements.answerKanji.textContent = question.answer;
     elements.answerReading.textContent = `読み：${question.reading}`;
     elements.answerExample.replaceChildren(createHighlightedExample(question));
   }
 
   function createMaskedQuestion(question) {
+    if (question.isFullSentence) {
+      return createFullSentencePrompt(question);
+    }
+
     const fragment = document.createDocumentFragment();
     const target = question.target || question.answer;
     const parts = question.question.split(target);
@@ -418,7 +548,32 @@
     return fragment;
   }
 
+  function createFullSentencePrompt(question) {
+    const fragment = document.createDocumentFragment();
+
+    question.sentenceSegments.forEach((segment) => {
+      if (segment.kind === "text") {
+        fragment.append(document.createTextNode(segment.text));
+        return;
+      }
+
+      const blank = document.createElement("span");
+      blank.className = segment.hasOkurigana
+        ? "reading-blank is-okurigana"
+        : "reading-blank";
+      blank.textContent = segment.reading;
+      blank.setAttribute("aria-label", `${segment.reading}を漢字かな交じりで書く`);
+      fragment.append(blank);
+    });
+
+    return fragment;
+  }
+
   function createHighlightedExample(question) {
+    if (question.isFullSentence) {
+      return createFullSentenceAnswer(question);
+    }
+
     const fragment = document.createDocumentFragment();
     const target = question.target || question.answer;
     const parts = question.question.split(target);
@@ -431,6 +586,24 @@
         fragment.append(mark);
       }
     });
+    return fragment;
+  }
+
+  function createFullSentenceAnswer(question) {
+    const fragment = document.createDocumentFragment();
+
+    question.sentenceSegments.forEach((segment) => {
+      if (segment.kind === "text") {
+        fragment.append(document.createTextNode(segment.text));
+        return;
+      }
+
+      const mark = document.createElement("mark");
+      mark.className = segment.hasOkurigana ? "has-okurigana" : "";
+      mark.textContent = segment.answer;
+      fragment.append(mark);
+    });
+
     return fragment;
   }
 
@@ -729,6 +902,7 @@
       ? `例文中の漢字語を別々に出題します。全${catalog.length}問です。10問区分は10例文分の漢字語へ展開されます。`
       : `指定された新出漢字を中心に、全${catalog.length}問を学習します。`;
     elements.flashcardAllOption.textContent = `全${catalog.length}問`;
+    elements.fullSentenceAllOption.textContent = `全${fullSentenceQuestions.length}文`;
     elements.testAllOption.textContent = `全${catalog.length}問`;
     elements.testPriorityOption.textContent = `A優先${priorityCount}問`;
     updateStats();
@@ -765,6 +939,7 @@
       });
       elements.segmentSettings.hidden = selectedMode !== "segment";
       elements.flashcardSettings.hidden = selectedMode !== "flashcard";
+      elements.fullSentenceSettings.hidden = selectedMode !== "fullSentence";
       elements.testSettings.hidden = selectedMode !== "test";
     });
   });

@@ -35,6 +35,7 @@
           <button class="mode-button is-selected" data-mode="all" type="button" aria-pressed="true">全問</button>
           <button class="mode-button" data-mode="segment" type="button" aria-pressed="false">10問特訓</button>
           <button class="mode-button" data-mode="flashcard" type="button" aria-pressed="false">フラッシュカード</button>
+          <button class="mode-button" data-mode="fullSentence" type="button" aria-pressed="false">全文</button>
           <button class="mode-button" data-mode="test" type="button" aria-pressed="false">テスト</button>
           <button class="mode-button" data-mode="priority" type="button" aria-pressed="false">A優先</button>
           <button class="mode-button" data-mode="wrong" type="button" aria-pressed="false">×だけ復習</button>
@@ -78,6 +79,27 @@
             <option value="page7:11-20">page7　11〜20番</option>
           </select>
           <p class="setting-note">このモードは今回の結果・累計履歴に反映されません。</p>
+        </div>
+        <div id="full-sentence-settings" class="segment-settings" hidden>
+          <label for="full-sentence-select">全文練習の範囲を選ぶ</label>
+          <select id="full-sentence-select">
+            <option id="full-sentence-all-option" value="all">全140文</option>
+            <option value="page1:1-10">page1　1〜10番</option>
+            <option value="page1:11-20">page1　11〜20番</option>
+            <option value="page2:1-10">page2　1〜10番</option>
+            <option value="page2:11-20">page2　11〜20番</option>
+            <option value="page3:1-10">page3　1〜10番</option>
+            <option value="page3:11-20">page3　11〜20番</option>
+            <option value="page4:1-10">page4　1〜10番</option>
+            <option value="page4:11-20">page4　11〜20番</option>
+            <option value="page5:1-10">page5　1〜10番</option>
+            <option value="page5:11-20">page5　11〜20番</option>
+            <option value="page6:1-10">page6　1〜10番</option>
+            <option value="page6:11-20">page6　11〜20番</option>
+            <option value="page7:1-10">page7　1〜10番</option>
+            <option value="page7:11-20">page7　11〜20番</option>
+          </select>
+          <p class="setting-note">例文全体を読みで出題し、全文を漢字かな交じりで答えます。このモードでは「学習する漢字」の設定は使いません。</p>
         </div>
         <div id="test-settings" class="segment-settings" hidden>
           <label for="test-select">テスト範囲を選ぶ</label>

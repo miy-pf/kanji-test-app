@@ -300,6 +300,21 @@ h2 {
   color: var(--primary);
 }
 
+.reading-blank.is-okurigana {
+  border-bottom: 0;
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: var(--primary);
+  text-decoration-thickness: 0.1em;
+  text-underline-offset: 0.18em;
+}
+
+.question-text.is-full-sentence {
+  font-size: clamp(1.8rem, 7vw, 3.1rem);
+  line-break: strict;
+  word-break: keep-all;
+}
+
 .question-meta {
   margin: 0.6rem 0 1.2rem;
   color: var(--muted);
@@ -376,6 +391,12 @@ h2 {
   letter-spacing: 0.08em;
 }
 
+.answer-kanji.is-sentence-answer {
+  font-size: clamp(2.2rem, 9vw, 4.2rem);
+  line-height: 1.35;
+  letter-spacing: 0.04em;
+}
+
 .answer-reading {
   margin-bottom: 1rem;
   font-family: "Klee One Local", "Hiragino Maru Gothic ProN", sans-serif;
@@ -395,6 +416,10 @@ h2 {
   color: inherit;
   background: #ffe596;
   border-bottom: 4px solid #8b6810;
+}
+
+.answer-example mark.has-okurigana {
+  border-bottom-style: wavy;
 }
 
 .checklist {
