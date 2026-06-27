@@ -411,6 +411,75 @@
     return { page, start, end };
   }
 
+  function populateRangeSelectors() {
+    const segments = getQuestionSegments();
+
+    replaceOptions(
+      elements.segmentSelect,
+      segments.map((segment) => createRangeOption(segment))
+    );
+    replaceOptions(elements.flashcardSelect, [
+      createOption("all", `全${getQuestionCatalog().length}問`, "flashcard-all-option"),
+      ...segments.map((segment) => createRangeOption(segment))
+    ]);
+    replaceOptions(elements.testSelect, [
+      createOption("random10", "全問題からランダム10問"),
+      createOption("random20", "全問題からランダム20問"),
+      createOption("all", `全${getQuestionCatalog().length}問`, "test-all-option"),
+      createOption("priority", "A優先", "test-priority-option"),
+      ...segments.map((segment) => createRangeOption(segment))
+    ]);
+    replaceOptions(elements.fullSentenceSelect, [
+      createOption("all", `全${fullSentenceQuestions.length}文`, "full-sentence-all-option"),
+      ...segments.map((segment) => createRangeOption(segment))
+    ]);
+
+    elements.flashcardAllOption = document.querySelector("#flashcard-all-option") ||
+      elements.flashcardSelect.querySelector('option[value="all"]');
+    elements.testAllOption = document.querySelector("#test-all-option");
+    elements.testPriorityOption = document.querySelector("#test-priority-option");
+    elements.fullSentenceAllOption = document.querySelector("#full-sentence-all-option");
+  }
+
+  function getQuestionSegments() {
+    const pages = new Map();
+    QUESTIONS.forEach((question) => {
+      if (!pages.has(question.page)) pages.set(question.page, []);
+      pages.get(question.page).push(Number(question.number));
+    });
+
+    return [...pages.entries()].flatMap(([page, numbers]) => {
+      const maxNumber = Math.max(...numbers);
+      const segments = [];
+      for (let start = 1; start <= maxNumber; start += 10) {
+        const end = Math.min(start + 9, maxNumber);
+        if (numbers.some((number) => number >= start && number <= end)) {
+          segments.push({ page, start, end });
+        }
+      }
+      return segments;
+    });
+  }
+
+  function createRangeOption(segment) {
+    return createOption(
+      `${segment.page}:${segment.start}-${segment.end}`,
+      `${segment.page}　${segment.start}〜${segment.end}番`
+    );
+  }
+
+  function createOption(value, label, id = "") {
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = label;
+    if (id) option.id = id;
+    return option;
+  }
+
+  function replaceOptions(select, options) {
+    select.replaceChildren(...options);
+  }
+
   function getModeLabel() {
     if (selectedMode === "segment") {
       const segment = getSelectedSegment();
@@ -968,6 +1037,7 @@
     button.addEventListener("click", () => scoreQuestion(button.dataset.score));
   });
 
+  populateRangeSelectors();
   updateStats();
   updateScopeDisplay();
   renderTestHistory();
