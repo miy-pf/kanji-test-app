@@ -13,7 +13,18 @@
         <p class="eyebrow">紙に書いておぼえよう</p>
         <h1>かんじ練習カード</h1>
       </div>
-      <button id="reset-history" class="button button-quiet" type="button">履歴リセット</button>
+      <div class="header-actions">
+        <label class="user-switcher" for="user-select">
+          <span>ユーザー</span>
+          <select id="user-select">
+            <option value="k">k</option>
+            <option value="guest1">guest1</option>
+            <option value="guest2">guest2</option>
+            <option value="guest3">guest3</option>
+          </select>
+        </label>
+        <button id="reset-history" class="button button-quiet" type="button">履歴リセット</button>
+      </div>
     </header>
 
     <main class="app-shell">
@@ -38,7 +49,7 @@
           <button class="mode-button" data-mode="fullSentence" type="button" aria-pressed="false">全文</button>
           <button class="mode-button" data-mode="test" type="button" aria-pressed="false">テスト</button>
           <button class="mode-button" data-mode="priority" type="button" aria-pressed="false">A優先</button>
-          <button class="mode-button" data-mode="wrong" type="button" aria-pressed="false">×だけ復習</button>
+          <button class="mode-button" data-mode="wrong" type="button" aria-pressed="false">段階別復習</button>
         </div>
         <div id="segment-settings" class="segment-settings" hidden>
           <label for="segment-select">特訓する10問を選ぶ</label>
@@ -67,6 +78,16 @@
           </select>
           <p class="setting-note">途中の点数は表示せず、最後にまとめて結果を表示します。</p>
         </div>
+        <div id="review-settings" class="segment-settings" hidden>
+          <label for="review-select">復習の種類を選ぶ</label>
+          <select id="review-select">
+            <option value="all">すべての復習</option>
+            <option value="superHard">超苦手だけ</option>
+            <option value="hardPlus">苦手以上</option>
+            <option value="redo">やり直しだけ</option>
+          </select>
+          <p class="setting-note">超苦手は3回以上の×、または思い違い2回以上。苦手は2回目の×、または思い違いあり。やり直しは1回だけの×です。</p>
+        </div>
         <div class="option-row">
           <label class="check-option">
             <input id="random-order" type="checkbox" checked>
@@ -74,7 +95,7 @@
           </label>
           <label class="check-option">
             <input id="review-first" type="checkbox" checked>
-            <span>×・思い違いを先に出す</span>
+            <span>苦手な問題を先に出す</span>
           </label>
         </div>
         <button id="start-session" class="button button-primary" type="button">この設定ではじめる</button>
@@ -184,6 +205,9 @@
             <div><span>×</span><strong id="history-wrong">0</strong></div>
             <div><span>思い違い</span><strong id="history-misconceptions">0</strong></div>
             <div><span>復習対象</span><strong id="history-review">0問</strong></div>
+            <div><span>超苦手</span><strong id="history-super-hard">0問</strong></div>
+            <div><span>苦手</span><strong id="history-hard">0問</strong></div>
+            <div><span>やり直し</span><strong id="history-redo">0問</strong></div>
           </div>
           <p class="history-note">ページを更新しても、この欄は保存されます。</p>
         </div>

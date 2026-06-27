@@ -3,6 +3,9 @@
 
   const STORAGE_KEY = "kanji-card-history-v1";
   const TEST_STORAGE_KEY = "kanji-card-test-history-v1";
+  const SELECTED_USER_KEY = "kanji-card-selected-user-v1";
+  const LEGACY_MIGRATION_KEY = "kanji-card-user-migration-v1";
+  const USERS = ["k", "guest1", "guest2", "guest3"];
   const MODE_LABELS = {
     all: "全問モード",
     segment: "10問特訓",
@@ -11,7 +14,13 @@
     test: "テストモード",
     testReview: "テストの間違い復習",
     priority: "A優先モード",
-    wrong: "×だけ復習モード"
+    wrong: "段階別復習モード"
+  };
+  const REVIEW_LABELS = {
+    all: "すべての復習",
+    superHard: "超苦手だけ",
+    hardPlus: "苦手以上",
+    redo: "やり直しだけ"
   };
 
   const elements = {
@@ -30,6 +39,9 @@
     testSelect: document.querySelector("#test-select"),
     testAllOption: document.querySelector("#test-all-option"),
     testPriorityOption: document.querySelector("#test-priority-option"),
+    reviewSettings: document.querySelector("#review-settings"),
+    reviewSelect: document.querySelector("#review-select"),
+    userSelect: document.querySelector("#user-select"),
     randomOrder: document.querySelector("#random-order"),
     reviewFirst: document.querySelector("#review-first"),
     startSession: document.querySelector("#start-session"),
@@ -69,6 +81,9 @@
     historyWrong: document.querySelector("#history-wrong"),
     historyMisconceptions: document.querySelector("#history-misconceptions"),
     historyReview: document.querySelector("#history-review"),
+    historySuperHard: document.querySelector("#history-super-hard"),
+    historyHard: document.querySelector("#history-hard"),
+    historyRedo: document.querySelector("#history-redo"),
     resultMessage: document.querySelector("#result-message"),
     nextQuestion: document.querySelector("#next-question"),
     masteredCount: document.querySelector("#mastered-count"),
@@ -85,6 +100,7 @@
 
   const allKanjiQuestions = createAllKanjiQuestions();
   const fullSentenceQuestions = createFullSentenceQuestions();
+  let selectedUser = loadSelectedUser();
   let selectedScope = "new";
   let selectedMode = "all";
   let history = loadHistory();
@@ -102,9 +118,55 @@
     return { total: 0, correct: 0, wrong: 0, misconceptions: 0, retries: 0 };
   }
 
-  function loadHistory() {
+  function loadSelectedUser() {
     try {
-      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+      const saved = localStorage.getItem(SELECTED_USER_KEY);
+      return USERS.includes(saved) ? saved : "k";
+    } catch (error) {
+      console.warn("ユーザー設定を読み込めませんでした。", error);
+      return "k";
+    }
+  }
+
+  function saveSelectedUser() {
+    try {
+      localStorage.setItem(SELECTED_USER_KEY, selectedUser);
+    } catch (error) {
+      console.warn("ユーザー設定を保存できませんでした。", error);
+    }
+  }
+
+  function getUserStorageKey(baseKey) {
+    return `${baseKey}:${selectedUser}`;
+  }
+
+  function migrateLegacyStorage() {
+    if (selectedUser !== "k") return;
+    try {
+      if (localStorage.getItem(LEGACY_MIGRATION_KEY) === "done") return;
+      copyLegacyStorage(STORAGE_KEY);
+      copyLegacyStorage(TEST_STORAGE_KEY);
+      localStorage.setItem(LEGACY_MIGRATION_KEY, "done");
+    } catch (error) {
+      console.warn("旧履歴の移行状態を保存できませんでした。", error);
+    }
+  }
+
+  function copyLegacyStorage(baseKey) {
+    try {
+      const userKey = getUserStorageKey(baseKey);
+      if (localStorage.getItem(userKey) !== null) return;
+      const legacy = localStorage.getItem(baseKey);
+      if (legacy !== null) localStorage.setItem(userKey, legacy);
+    } catch (error) {
+      console.warn("旧履歴をユーザー別履歴へ移行できませんでした。", error);
+    }
+  }
+
+  function loadHistory() {
+    migrateLegacyStorage();
+    try {
+      const saved = JSON.parse(localStorage.getItem(getUserStorageKey(STORAGE_KEY)));
       return saved && typeof saved === "object" ? saved : {};
     } catch (error) {
       console.warn("学習履歴を読み込めませんでした。", error);
@@ -114,15 +176,16 @@
 
   function saveHistory() {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+      localStorage.setItem(getUserStorageKey(STORAGE_KEY), JSON.stringify(history));
     } catch (error) {
       console.warn("学習履歴を保存できませんでした。", error);
     }
   }
 
   function loadTestHistory() {
+    migrateLegacyStorage();
     try {
-      const saved = JSON.parse(localStorage.getItem(TEST_STORAGE_KEY));
+      const saved = JSON.parse(localStorage.getItem(getUserStorageKey(TEST_STORAGE_KEY)));
       return Array.isArray(saved) ? saved : [];
     } catch (error) {
       console.warn("テスト履歴を読み込めませんでした。", error);
@@ -132,7 +195,7 @@
 
   function saveTestHistory() {
     try {
-      localStorage.setItem(TEST_STORAGE_KEY, JSON.stringify(testHistory));
+      localStorage.setItem(getUserStorageKey(TEST_STORAGE_KEY), JSON.stringify(testHistory));
     } catch (error) {
       console.warn("テスト履歴を保存できませんでした。", error);
     }
@@ -286,10 +349,43 @@
 
   function reviewWeight(question) {
     const record = getQuestionHistory(question.id);
-    if (record.misconceptionPending) return 4;
-    if (record.needsReview || record.lastResult === "wrong") return 3;
-    if (record.lastResult === "unsure") return 2;
+    const level = getReviewLevel(record);
+    if (level === "superHard") return 5;
+    if (level === "hard") return 4;
+    if (level === "redo") return 3;
     return 0;
+  }
+
+  function isActiveReview(record) {
+    return Boolean(
+      record.needsReview ||
+      record.misconceptionPending ||
+      record.lastResult === "wrong" ||
+      record.lastResult === "unsure"
+    );
+  }
+
+  function getReviewLevel(record) {
+    if (!isActiveReview(record)) return "none";
+
+    const wrongCount =
+      (Number(record.wrong) || 0) +
+      (Number(record.unsure) || 0) +
+      (Number(record.testWrongCount) || 0);
+    const misconceptionCount = Number(record.misconceptions) || 0;
+
+    if (wrongCount >= 3 || misconceptionCount >= 2) return "superHard";
+    if (wrongCount >= 2 || misconceptionCount >= 1) return "hard";
+    if (wrongCount >= 1) return "redo";
+    return "redo";
+  }
+
+  function matchesReviewFilter(level) {
+    const filter = elements.reviewSelect.value;
+    if (filter === "superHard") return level === "superHard";
+    if (filter === "hardPlus") return level === "superHard" || level === "hard";
+    if (filter === "redo") return level === "redo";
+    return level !== "none";
   }
 
   function buildQueue() {
@@ -317,8 +413,7 @@
       if (selectedMode === "priority") return question.priority === "A";
       if (selectedMode === "wrong") {
         const record = getQuestionHistory(question.id);
-        return record.needsReview || record.misconceptionPending ||
-          record.lastResult === "wrong" || record.lastResult === "unsure";
+        return matchesReviewFilter(getReviewLevel(record));
       }
       return true;
     });
@@ -495,6 +590,7 @@
     }
     if (selectedMode === "fullSentence") return getFullSentenceRangeLabel();
     if (selectedMode === "test") return getTestRangeLabel();
+    if (selectedMode === "wrong") return `段階別復習・${REVIEW_LABELS[elements.reviewSelect.value]}`;
     return MODE_LABELS[selectedMode];
   }
 
@@ -522,9 +618,9 @@
   function showCurrentQuestion() {
     if (queue.length === 0) {
       showEmptyState(
-        selectedMode === "wrong" ? "×の問題はありません" : "問題がありません",
+        selectedMode === "wrong" ? "復習する問題はありません" : "問題がありません",
         selectedMode === "wrong"
-          ? "すばらしい！ ×をつけた問題ができると、ここに表示されます。"
+          ? "この分類の復習問題はありません。別の復習の種類を選ぶか、通常練習を進めてください。"
           : "questions.js に問題を追加してください。"
       );
       return;
@@ -906,14 +1002,21 @@
       total.wrong += wrong;
       total.misconceptions += Number(record.misconceptions) || 0;
       total.mastered += record.mastered ? 1 : 0;
-      total.review += record.needsReview || record.misconceptionPending ? 1 : 0;
+      const level = getReviewLevel(record);
+      total.review += level !== "none" ? 1 : 0;
+      if (level === "superHard") total.superHard += 1;
+      if (level === "hard") total.hard += 1;
+      if (level === "redo") total.redo += 1;
       return total;
     }, {
       correct: 0,
       wrong: 0,
       misconceptions: 0,
       mastered: 0,
-      review: 0
+      review: 0,
+      superHard: 0,
+      hard: 0,
+      redo: 0
     });
     const cumulativeTotal = cumulative.correct + cumulative.wrong;
     const cumulativeRate = cumulativeTotal
@@ -934,6 +1037,9 @@
     elements.historyWrong.textContent = cumulative.wrong;
     elements.historyMisconceptions.textContent = cumulative.misconceptions;
     elements.historyReview.textContent = `${cumulative.review}問`;
+    elements.historySuperHard.textContent = `${cumulative.superHard}問`;
+    elements.historyHard.textContent = `${cumulative.hard}問`;
+    elements.historyRedo.textContent = `${cumulative.redo}問`;
   }
 
   function renderTestHistory() {
@@ -986,14 +1092,28 @@
 
   function resetHistory() {
     const shouldReset = window.confirm(
-      "学習履歴・習得済み・テスト履歴をすべて消しますか？"
+      `${selectedUser} の学習履歴・習得済み・テスト履歴をすべて消しますか？`
     );
     if (!shouldReset) return;
 
     history = {};
     testHistory = [];
-    localStorage.removeItem(STORAGE_KEY);
-    localStorage.removeItem(TEST_STORAGE_KEY);
+    localStorage.removeItem(getUserStorageKey(STORAGE_KEY));
+    localStorage.removeItem(getUserStorageKey(TEST_STORAGE_KEY));
+    renderTestHistory();
+    startSession();
+  }
+
+  function switchUser(user) {
+    if (!USERS.includes(user) || user === selectedUser) return;
+    selectedUser = user;
+    saveSelectedUser();
+    history = loadHistory();
+    testHistory = loadTestHistory();
+    retryIds = new Set();
+    sessionStats = createEmptyStats();
+    testAnswers = [];
+    lastTestWrongQuestions = [];
     renderTestHistory();
     startSession();
   }
@@ -1010,6 +1130,7 @@
       elements.flashcardSettings.hidden = selectedMode !== "flashcard";
       elements.fullSentenceSettings.hidden = selectedMode !== "fullSentence";
       elements.testSettings.hidden = selectedMode !== "test";
+      elements.reviewSettings.hidden = selectedMode !== "wrong";
     });
   });
 
@@ -1027,6 +1148,7 @@
 
   elements.startSession.addEventListener("click", startSession);
   elements.resetHistory.addEventListener("click", resetHistory);
+  elements.userSelect.addEventListener("change", () => switchUser(elements.userSelect.value));
   elements.wroteAnswer.addEventListener("click", () => revealAnswer("wrote"));
   elements.unknownAnswer.addEventListener("click", () => revealAnswer("unknown"));
   elements.flashcardShowAnswer.addEventListener("click", revealFlashcardAnswer);
@@ -1037,6 +1159,7 @@
     button.addEventListener("click", () => scoreQuestion(button.dataset.score));
   });
 
+  elements.userSelect.value = selectedUser;
   populateRangeSelectors();
   updateStats();
   updateScopeDisplay();
