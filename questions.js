@@ -1834,6 +1834,11 @@ const ALL_KANJI_TARGETS = {
       "target": "小石",
       "answer": "小石",
       "reading": "こいし"
+    },
+    {
+      "target": "拾う",
+      "answer": "拾う",
+      "reading": "ひろう"
     }
   ],
   "143": [
@@ -1841,6 +1846,11 @@ const ALL_KANJI_TARGETS = {
       "target": "向かう",
       "answer": "向かう",
       "reading": "むかう"
+    },
+    {
+      "target": "学校",
+      "answer": "学校",
+      "reading": "がっこう"
     }
   ],
   "144": [
@@ -1848,6 +1858,11 @@ const ALL_KANJI_TARGETS = {
       "target": "坂",
       "answer": "坂",
       "reading": "さか"
+    },
+    {
+      "target": "下る",
+      "answer": "下る",
+      "reading": "くだる"
     }
   ],
   "145": [
@@ -1862,6 +1877,11 @@ const ALL_KANJI_TARGETS = {
       "target": "悲鳴",
       "answer": "悲鳴",
       "reading": "ひめい"
+    },
+    {
+      "target": "聞こえる",
+      "answer": "聞こえる",
+      "reading": "きこえる"
     }
   ],
   "147": [
@@ -1876,6 +1896,11 @@ const ALL_KANJI_TARGETS = {
       "target": "開き",
       "answer": "開き",
       "reading": "ひらき"
+    },
+    {
+      "target": "魚",
+      "answer": "魚",
+      "reading": "さかな"
     }
   ],
   "149": [
@@ -1883,6 +1908,11 @@ const ALL_KANJI_TARGETS = {
       "target": "海岸",
       "answer": "海岸",
       "reading": "かいがん"
+    },
+    {
+      "target": "歩く",
+      "answer": "歩く",
+      "reading": "あるく"
     }
   ],
   "150": [
@@ -1911,6 +1941,11 @@ const ALL_KANJI_TARGETS = {
       "target": "羽",
       "answer": "羽",
       "reading": "はね"
+    },
+    {
+      "target": "鳥",
+      "answer": "鳥",
+      "reading": "とり"
     }
   ],
   "154": [
@@ -1918,6 +1953,11 @@ const ALL_KANJI_TARGETS = {
       "target": "方向",
       "answer": "方向",
       "reading": "ほうこう"
+    },
+    {
+      "target": "南",
+      "answer": "南",
+      "reading": "みなみ"
     }
   ],
   "155": [
@@ -1925,6 +1965,11 @@ const ALL_KANJI_TARGETS = {
       "target": "悲しい",
       "answer": "悲しい",
       "reading": "かなしい"
+    },
+    {
+      "target": "気分",
+      "answer": "気分",
+      "reading": "きぶん"
     }
   ],
   "156": [
@@ -1939,6 +1984,11 @@ const ALL_KANJI_TARGETS = {
       "target": "開店",
       "answer": "開店",
       "reading": "かいてん"
+    },
+    {
+      "target": "九時",
+      "answer": "九時",
+      "reading": "くじ"
     }
   ],
   "158": [
@@ -1960,6 +2010,11 @@ const ALL_KANJI_TARGETS = {
       "target": "開ける",
       "answer": "開ける",
       "reading": "あける"
+    },
+    {
+      "target": "目",
+      "answer": "目",
+      "reading": "め"
     }
   ],
   "161": [
@@ -1967,6 +2022,11 @@ const ALL_KANJI_TARGETS = {
       "target": "感じる",
       "answer": "感じる",
       "reading": "かんじる"
+    },
+    {
+      "target": "心",
+      "answer": "心",
+      "reading": "こころ"
     }
   ],
   "162": [
@@ -1974,6 +2034,11 @@ const ALL_KANJI_TARGETS = {
       "target": "対する",
       "answer": "対する",
       "reading": "たいする"
+    },
+    {
+      "target": "考え",
+      "answer": "考え",
+      "reading": "かんがえ"
     }
   ],
   "163": [
@@ -1981,6 +2046,11 @@ const ALL_KANJI_TARGETS = {
       "target": "調子",
       "answer": "調子",
       "reading": "ちょうし"
+    },
+    {
+      "target": "声",
+      "answer": "声",
+      "reading": "こえ"
     }
   ],
   "164": [
@@ -1988,6 +2058,11 @@ const ALL_KANJI_TARGETS = {
       "target": "区切る",
       "answer": "区切る",
       "reading": "くぎる"
+    },
+    {
+      "target": "二つ",
+      "answer": "二つ",
+      "reading": "ふたつ"
     }
   ],
   "165": [
@@ -2002,6 +2077,11 @@ const ALL_KANJI_TARGETS = {
       "target": "整える",
       "answer": "整える",
       "reading": "ととのえる"
+    },
+    {
+      "target": "上",
+      "answer": "上",
+      "reading": "うえ"
     }
   ],
   "167": [
@@ -2009,6 +2089,11 @@ const ALL_KANJI_TARGETS = {
       "target": "一部",
       "answer": "一部",
       "reading": "いちぶ"
+    },
+    {
+      "target": "話",
+      "answer": "話",
+      "reading": "はなし"
     }
   ],
   "168": [
@@ -2044,6 +2129,11 @@ const ALL_KANJI_TARGETS = {
       "target": "登場人物",
       "answer": "登場人物",
       "reading": "とうじょうじんぶつ"
+    },
+    {
+      "target": "気持ち",
+      "answer": "気持ち",
+      "reading": "きもち"
     }
   ],
   "173": [
@@ -2051,6 +2141,11 @@ const ALL_KANJI_TARGETS = {
       "target": "場面",
       "answer": "場面",
       "reading": "ばめん"
+    },
+    {
+      "target": "物語",
+      "answer": "物語",
+      "reading": "ものがたり"
     }
   ],
   "174": [
@@ -2058,6 +2153,11 @@ const ALL_KANJI_TARGETS = {
       "target": "東",
       "answer": "東",
       "reading": "ひがし"
+    },
+    {
+      "target": "空",
+      "answer": "空",
+      "reading": "そら"
     }
   ],
   "175": [
@@ -2065,6 +2165,11 @@ const ALL_KANJI_TARGETS = {
       "target": "歌詞",
       "answer": "歌詞",
       "reading": "かし"
+    },
+    {
+      "target": "考える",
+      "answer": "考える",
+      "reading": "かんがえる"
     }
   ],
   "176": [
@@ -2072,6 +2177,11 @@ const ALL_KANJI_TARGETS = {
       "target": "近所",
       "answer": "近所",
       "reading": "きんじょ"
+    },
+    {
+      "target": "図書館",
+      "answer": "図書館",
+      "reading": "としょかん"
     }
   ],
   "177": [
@@ -2086,6 +2196,11 @@ const ALL_KANJI_TARGETS = {
       "target": "水泳",
       "answer": "水泳",
       "reading": "すいえい"
+    },
+    {
+      "target": "先生",
+      "answer": "先生",
+      "reading": "せんせい"
     }
   ],
   "179": [
@@ -2093,6 +2208,11 @@ const ALL_KANJI_TARGETS = {
       "target": "練る",
       "answer": "練る",
       "reading": "ねる"
+    },
+    {
+      "target": "ねん土",
+      "answer": "粘土",
+      "reading": "ねんど"
     }
   ],
   "180": [
@@ -2100,6 +2220,11 @@ const ALL_KANJI_TARGETS = {
       "target": "助ける",
       "answer": "助ける",
       "reading": "たすける"
+    },
+    {
+      "target": "人",
+      "answer": "人",
+      "reading": "ひと"
     }
   ],
   "181": [
@@ -2121,6 +2246,11 @@ const ALL_KANJI_TARGETS = {
       "target": "岸べ",
       "answer": "岸べ",
       "reading": "きしべ"
+    },
+    {
+      "target": "歩く",
+      "answer": "歩く",
+      "reading": "あるく"
     }
   ],
   "184": [
@@ -2135,6 +2265,11 @@ const ALL_KANJI_TARGETS = {
       "target": "安心",
       "answer": "安心",
       "reading": "あんしん"
+    },
+    {
+      "target": "母",
+      "answer": "母",
+      "reading": "はは"
     }
   ],
   "186": [
@@ -2142,6 +2277,11 @@ const ALL_KANJI_TARGETS = {
       "target": "全く",
       "answer": "全く",
       "reading": "まったく"
+    },
+    {
+      "target": "知らない",
+      "answer": "知らない",
+      "reading": "しらない"
     }
   ],
   "187": [
@@ -2149,6 +2289,11 @@ const ALL_KANJI_TARGETS = {
       "target": "中世",
       "answer": "中世",
       "reading": "ちゅうせい"
+    },
+    {
+      "target": "たて物",
+      "answer": "建物",
+      "reading": "たてもの"
     }
   ],
   "188": [
@@ -2163,6 +2308,11 @@ const ALL_KANJI_TARGETS = {
       "target": "次ぐ",
       "answer": "次ぐ",
       "reading": "つぐ"
+    },
+    {
+      "target": "電話",
+      "answer": "電話",
+      "reading": "でんわ"
     }
   ],
   "190": [
@@ -2177,6 +2327,16 @@ const ALL_KANJI_TARGETS = {
       "target": "緑",
       "answer": "緑",
       "reading": "みどり"
+    },
+    {
+      "target": "多い",
+      "answer": "多い",
+      "reading": "おおい"
+    },
+    {
+      "target": "町",
+      "answer": "町",
+      "reading": "まち"
     }
   ],
   "192": [
@@ -2184,6 +2344,11 @@ const ALL_KANJI_TARGETS = {
       "target": "送る",
       "answer": "送る",
       "reading": "おくる"
+    },
+    {
+      "target": "手紙",
+      "answer": "手紙",
+      "reading": "てがみ"
     }
   ],
   "193": [
@@ -2191,6 +2356,11 @@ const ALL_KANJI_TARGETS = {
       "target": "水温",
       "answer": "水温",
       "reading": "すいおん"
+    },
+    {
+      "target": "一定",
+      "answer": "一定",
+      "reading": "いってい"
     }
   ],
   "194": [
@@ -2205,6 +2375,11 @@ const ALL_KANJI_TARGETS = {
       "target": "向く",
       "answer": "向く",
       "reading": "むく"
+    },
+    {
+      "target": "前",
+      "answer": "前",
+      "reading": "まえ"
     }
   ],
   "196": [
@@ -2219,6 +2394,11 @@ const ALL_KANJI_TARGETS = {
       "target": "遊ぶ",
       "answer": "遊ぶ",
       "reading": "あそぶ"
+    },
+    {
+      "target": "外",
+      "answer": "外",
+      "reading": "そと"
     }
   ],
   "198": [
@@ -2226,6 +2406,11 @@ const ALL_KANJI_TARGETS = {
       "target": "農場",
       "answer": "農場",
       "reading": "のうじょう"
+    },
+    {
+      "target": "広い",
+      "answer": "広い",
+      "reading": "ひろい"
     }
   ],
   "199": [
@@ -2240,6 +2425,11 @@ const ALL_KANJI_TARGETS = {
       "target": "表す",
       "answer": "表す",
       "reading": "あらわす"
+    },
+    {
+      "target": "図",
+      "answer": "図",
+      "reading": "ず"
     }
   ],
   "201": [
@@ -2247,6 +2437,11 @@ const ALL_KANJI_TARGETS = {
       "target": "童話",
       "answer": "童話",
       "reading": "どうわ"
+    },
+    {
+      "target": "読む",
+      "answer": "読む",
+      "reading": "よむ"
     }
   ],
   "202": [
@@ -2261,6 +2456,11 @@ const ALL_KANJI_TARGETS = {
       "target": "大人",
       "answer": "大人",
       "reading": "おとな"
+    },
+    {
+      "target": "子ども",
+      "answer": "子ども",
+      "reading": "こども"
     }
   ],
   "204": [
@@ -2282,6 +2482,11 @@ const ALL_KANJI_TARGETS = {
       "target": "客様",
       "answer": "客様",
       "reading": "きゃくさま"
+    },
+    {
+      "target": "来る",
+      "answer": "来る",
+      "reading": "くる"
     }
   ],
   "207": [
@@ -2289,6 +2494,11 @@ const ALL_KANJI_TARGETS = {
       "target": "入学式",
       "answer": "入学式",
       "reading": "にゅうがくしき"
+    },
+    {
+      "target": "日",
+      "answer": "日",
+      "reading": "ひ"
     }
   ],
   "208": [
@@ -2296,6 +2506,11 @@ const ALL_KANJI_TARGETS = {
       "target": "去年",
       "answer": "去年",
       "reading": "きょねん"
+    },
+    {
+      "target": "夏",
+      "answer": "夏",
+      "reading": "なつ"
     }
   ],
   "209": [
@@ -2303,6 +2518,11 @@ const ALL_KANJI_TARGETS = {
       "target": "二倍",
       "answer": "二倍",
       "reading": "にばい"
+    },
+    {
+      "target": "数",
+      "answer": "数",
+      "reading": "かず"
     }
   ],
   "210": [
@@ -2310,6 +2530,11 @@ const ALL_KANJI_TARGETS = {
       "target": "毛筆",
       "answer": "毛筆",
       "reading": "もうひつ"
+    },
+    {
+      "target": "書く",
+      "answer": "書く",
+      "reading": "かく"
     }
   ],
   "211": [
@@ -2317,6 +2542,11 @@ const ALL_KANJI_TARGETS = {
       "target": "引用",
       "answer": "引用",
       "reading": "いんよう"
+    },
+    {
+      "target": "文",
+      "answer": "文",
+      "reading": "ぶん"
     }
   ],
   "212": [
@@ -2331,6 +2561,11 @@ const ALL_KANJI_TARGETS = {
       "target": "総合的",
       "answer": "総合的",
       "reading": "そうごうてき"
+    },
+    {
+      "target": "学習",
+      "answer": "学習",
+      "reading": "がくしゅう"
     }
   ],
   "214": [
@@ -2352,6 +2587,16 @@ const ALL_KANJI_TARGETS = {
       "target": "今年",
       "answer": "今年",
       "reading": "ことし"
+    },
+    {
+      "target": "雨",
+      "answer": "雨",
+      "reading": "あめ"
+    },
+    {
+      "target": "多い",
+      "answer": "多い",
+      "reading": "おおい"
     }
   ],
   "217": [
@@ -2359,6 +2604,11 @@ const ALL_KANJI_TARGETS = {
       "target": "品物",
       "answer": "品物",
       "reading": "しなもの"
+    },
+    {
+      "target": "店",
+      "answer": "店",
+      "reading": "みせ"
     }
   ],
   "218": [
@@ -2366,6 +2616,11 @@ const ALL_KANJI_TARGETS = {
       "target": "去る",
       "answer": "去る",
       "reading": "さる"
+    },
+    {
+      "target": "時間",
+      "answer": "時間",
+      "reading": "じかん"
     }
   ],
   "219": [
@@ -2373,6 +2628,16 @@ const ALL_KANJI_TARGETS = {
       "target": "筆",
       "answer": "筆",
       "reading": "ふで"
+    },
+    {
+      "target": "字",
+      "answer": "字",
+      "reading": "じ"
+    },
+    {
+      "target": "書く",
+      "answer": "書く",
+      "reading": "かく"
     }
   ],
   "220": [
@@ -2387,6 +2652,11 @@ const ALL_KANJI_TARGETS = {
       "target": "銀行",
       "answer": "銀行",
       "reading": "ぎんこう"
+    },
+    {
+      "target": "町",
+      "answer": "町",
+      "reading": "まち"
     }
   ],
   "222": [
@@ -2394,6 +2664,11 @@ const ALL_KANJI_TARGETS = {
       "target": "同時",
       "answer": "同時",
       "reading": "どうじ"
+    },
+    {
+      "target": "走る",
+      "answer": "走る",
+      "reading": "はしる"
     }
   ],
   "223": [
@@ -2401,6 +2676,11 @@ const ALL_KANJI_TARGETS = {
       "target": "直線",
       "answer": "直線",
       "reading": "ちょくせん"
+    },
+    {
+      "target": "引く",
+      "answer": "引く",
+      "reading": "ひく"
     }
   ],
   "224": [
@@ -2408,6 +2688,11 @@ const ALL_KANJI_TARGETS = {
       "target": "二日",
       "answer": "二日",
       "reading": "ふつか"
+    },
+    {
+      "target": "雨",
+      "answer": "雨",
+      "reading": "あめ"
     }
   ],
   "225": [
@@ -2415,6 +2700,11 @@ const ALL_KANJI_TARGETS = {
       "target": "白玉",
       "answer": "白玉",
       "reading": "しらたま"
+    },
+    {
+      "target": "食べる",
+      "answer": "食べる",
+      "reading": "たべる"
     }
   ],
   "226": [
@@ -2429,6 +2719,11 @@ const ALL_KANJI_TARGETS = {
       "target": "集める",
       "answer": "集める",
       "reading": "あつめる"
+    },
+    {
+      "target": "人",
+      "answer": "人",
+      "reading": "ひと"
     }
   ],
   "228": [
@@ -2436,6 +2731,11 @@ const ALL_KANJI_TARGETS = {
       "target": "化石",
       "answer": "化石",
       "reading": "かせき"
+    },
+    {
+      "target": "調べる",
+      "answer": "調べる",
+      "reading": "しらべる"
     }
   ],
   "229": [
@@ -2443,6 +2743,11 @@ const ALL_KANJI_TARGETS = {
       "target": "死ぬ",
       "answer": "死ぬ",
       "reading": "しぬ"
+    },
+    {
+      "target": "虫",
+      "answer": "虫",
+      "reading": "むし"
     }
   ],
   "230": [
@@ -2457,6 +2762,11 @@ const ALL_KANJI_TARGETS = {
       "target": "題名",
       "answer": "題名",
       "reading": "だいめい"
+    },
+    {
+      "target": "考える",
+      "answer": "考える",
+      "reading": "かんがえる"
     }
   ],
   "232": [
@@ -2464,6 +2774,11 @@ const ALL_KANJI_TARGETS = {
       "target": "数字",
       "answer": "数字",
       "reading": "すうじ"
+    },
+    {
+      "target": "書く",
+      "answer": "書く",
+      "reading": "かく"
     }
   ],
   "233": [
@@ -2471,6 +2786,11 @@ const ALL_KANJI_TARGETS = {
       "target": "入道雲",
       "answer": "入道雲",
       "reading": "にゅうどうぐも"
+    },
+    {
+      "target": "夏",
+      "answer": "夏",
+      "reading": "なつ"
     }
   ],
   "234": [
@@ -2478,6 +2798,11 @@ const ALL_KANJI_TARGETS = {
       "target": "新た",
       "answer": "新た",
       "reading": "あらた"
+    },
+    {
+      "target": "発見",
+      "answer": "発見",
+      "reading": "はっけん"
     }
   ],
   "235": [
@@ -2485,6 +2810,11 @@ const ALL_KANJI_TARGETS = {
       "target": "目次",
       "answer": "目次",
       "reading": "もくじ"
+    },
+    {
+      "target": "本",
+      "answer": "本",
+      "reading": "ほん"
     }
   ],
   "236": [
@@ -2499,6 +2829,11 @@ const ALL_KANJI_TARGETS = {
       "target": "植える",
       "answer": "植える",
       "reading": "うえる"
+    },
+    {
+      "target": "木",
+      "answer": "木",
+      "reading": "き"
     }
   ],
   "238": [
@@ -2506,6 +2841,11 @@ const ALL_KANJI_TARGETS = {
       "target": "集会",
       "answer": "集会",
       "reading": "しゅうかい"
+    },
+    {
+      "target": "開く",
+      "answer": "開く",
+      "reading": "ひらく"
     }
   ],
   "239": [
@@ -2520,6 +2860,11 @@ const ALL_KANJI_TARGETS = {
       "target": "都",
       "answer": "都",
       "reading": "みやこ"
+    },
+    {
+      "target": "古い",
+      "answer": "古い",
+      "reading": "ふるい"
     }
   ],
   "241": [
@@ -2534,6 +2879,11 @@ const ALL_KANJI_TARGETS = {
       "target": "式",
       "answer": "式",
       "reading": "しき"
+    },
+    {
+      "target": "かけ算",
+      "answer": "かけ算",
+      "reading": "かけざん"
     }
   ],
   "243": [
@@ -2562,6 +2912,11 @@ const ALL_KANJI_TARGETS = {
       "target": "洋食",
       "answer": "洋食",
       "reading": "ようしょく"
+    },
+    {
+      "target": "店",
+      "answer": "店",
+      "reading": "みせ"
     }
   ],
   "247": [
@@ -2576,6 +2931,11 @@ const ALL_KANJI_TARGETS = {
       "target": "童よう",
       "answer": "童よう",
       "reading": "どうよう"
+    },
+    {
+      "target": "歌う",
+      "answer": "歌う",
+      "reading": "うたう"
     }
   ],
   "249": [
@@ -2597,6 +2957,11 @@ const ALL_KANJI_TARGETS = {
       "target": "県内",
       "answer": "県内",
       "reading": "けんない"
+    },
+    {
+      "target": "学校",
+      "answer": "学校",
+      "reading": "がっこう"
     }
   ],
   "252": [
@@ -2611,6 +2976,11 @@ const ALL_KANJI_TARGETS = {
       "target": "整う",
       "answer": "整う",
       "reading": "ととのう"
+    },
+    {
+      "target": "形",
+      "answer": "形",
+      "reading": "かたち"
     }
   ],
   "254": [
@@ -2618,6 +2988,11 @@ const ALL_KANJI_TARGETS = {
       "target": "死ぬ",
       "answer": "死ぬ",
       "reading": "しぬ"
+    },
+    {
+      "target": "魚",
+      "answer": "魚",
+      "reading": "さかな"
     }
   ],
   "255": [
@@ -2625,6 +3000,11 @@ const ALL_KANJI_TARGETS = {
       "target": "三倍",
       "answer": "三倍",
       "reading": "さんばい"
+    },
+    {
+      "target": "長さ",
+      "answer": "長さ",
+      "reading": "ながさ"
     }
   ],
   "256": [
@@ -2632,6 +3012,11 @@ const ALL_KANJI_TARGETS = {
       "target": "始まり",
       "answer": "始まり",
       "reading": "はじまり"
+    },
+    {
+      "target": "話",
+      "answer": "話",
+      "reading": "はなし"
     }
   ],
   "257": [
@@ -2646,6 +3031,11 @@ const ALL_KANJI_TARGETS = {
       "target": "進化",
       "answer": "進化",
       "reading": "しんか"
+    },
+    {
+      "target": "生物",
+      "answer": "生物",
+      "reading": "せいぶつ"
     }
   ],
   "259": [
@@ -2660,6 +3050,11 @@ const ALL_KANJI_TARGETS = {
       "target": "水面",
       "answer": "水面",
       "reading": "すいめん"
+    },
+    {
+      "target": "川",
+      "answer": "川",
+      "reading": "かわ"
     }
   ],
   "261": [
@@ -2667,6 +3062,11 @@ const ALL_KANJI_TARGETS = {
       "target": "両手",
       "answer": "両手",
       "reading": "りょうて"
+    },
+    {
+      "target": "広げる",
+      "answer": "広げる",
+      "reading": "ひろげる"
     }
   ],
   "262": [
@@ -2674,6 +3074,11 @@ const ALL_KANJI_TARGETS = {
       "target": "負ける",
       "answer": "負ける",
       "reading": "まける"
+    },
+    {
+      "target": "赤組",
+      "answer": "赤組",
+      "reading": "あかぐみ"
     }
   ],
   "263": [
@@ -2681,6 +3086,11 @@ const ALL_KANJI_TARGETS = {
       "target": "係",
       "answer": "係",
       "reading": "かかり"
+    },
+    {
+      "target": "仕事",
+      "answer": "仕事",
+      "reading": "しごと"
     }
   ],
   "264": [
@@ -2688,6 +3098,11 @@ const ALL_KANJI_TARGETS = {
       "target": "語り合う",
       "answer": "語り合う",
       "reading": "かたりあう"
+    },
+    {
+      "target": "全員",
+      "answer": "全員",
+      "reading": "ぜんいん"
     }
   ],
   "265": [
@@ -2695,6 +3110,11 @@ const ALL_KANJI_TARGETS = {
       "target": "祭り",
       "answer": "祭り",
       "reading": "まつり"
+    },
+    {
+      "target": "村",
+      "answer": "村",
+      "reading": "むら"
     }
   ],
   "266": [
@@ -2716,6 +3136,11 @@ const ALL_KANJI_TARGETS = {
       "target": "電柱",
       "answer": "電柱",
       "reading": "でんちゅう"
+    },
+    {
+      "target": "太い",
+      "answer": "太い",
+      "reading": "ふとい"
     }
   ],
   "269": [
@@ -2723,6 +3148,11 @@ const ALL_KANJI_TARGETS = {
       "target": "予定",
       "answer": "予定",
       "reading": "よてい"
+    },
+    {
+      "target": "休日",
+      "answer": "休日",
+      "reading": "きゅうじつ"
     }
   ],
   "270": [
@@ -2751,6 +3181,11 @@ const ALL_KANJI_TARGETS = {
       "target": "止まる",
       "answer": "止まる",
       "reading": "とまる"
+    },
+    {
+      "target": "時計",
+      "answer": "時計",
+      "reading": "とけい"
     }
   ],
   "274": [
@@ -2772,6 +3207,11 @@ const ALL_KANJI_TARGETS = {
       "target": "文化祭",
       "answer": "文化祭",
       "reading": "ぶんかさい"
+    },
+    {
+      "target": "学校",
+      "answer": "学校",
+      "reading": "がっこう"
     }
   ],
   "277": [
@@ -2779,6 +3219,11 @@ const ALL_KANJI_TARGETS = {
       "target": "羽子板",
       "answer": "羽子板",
       "reading": "はごいた"
+    },
+    {
+      "target": "遊ぶ",
+      "answer": "遊ぶ",
+      "reading": "あそぶ"
     }
   ],
   "278": [
@@ -2786,6 +3231,11 @@ const ALL_KANJI_TARGETS = {
       "target": "柱",
       "answer": "柱",
       "reading": "はしら"
+    },
+    {
+      "target": "家",
+      "answer": "家",
+      "reading": "いえ"
     }
   ],
   "279": [
@@ -2828,6 +3278,11 @@ const ALL_KANJI_TARGETS = {
       "target": "雲海",
       "answer": "雲海",
       "reading": "うんかい"
+    },
+    {
+      "target": "広がる",
+      "answer": "広がる",
+      "reading": "ひろがる"
     }
   ],
   "285": [
@@ -2842,6 +3297,11 @@ const ALL_KANJI_TARGETS = {
       "target": "注意",
       "answer": "注意",
       "reading": "ちゅうい"
+    },
+    {
+      "target": "車",
+      "answer": "車",
+      "reading": "くるま"
     }
   ],
   "287": [
@@ -2863,6 +3323,11 @@ const ALL_KANJI_TARGETS = {
       "target": "売買",
       "answer": "売買",
       "reading": "ばいばい"
+    },
+    {
+      "target": "品物",
+      "answer": "品物",
+      "reading": "しなもの"
     }
   ],
   "290": [
@@ -2870,6 +3335,11 @@ const ALL_KANJI_TARGETS = {
       "target": "港町",
       "answer": "港町",
       "reading": "みなとまち"
+    },
+    {
+      "target": "歩く",
+      "answer": "歩く",
+      "reading": "あるく"
     }
   ],
   "291": [
@@ -2877,6 +3347,11 @@ const ALL_KANJI_TARGETS = {
       "target": "部分",
       "answer": "部分",
       "reading": "ぶぶん"
+    },
+    {
+      "target": "大事",
+      "answer": "大事",
+      "reading": "だいじ"
     }
   ],
   "292": [
@@ -2884,6 +3359,11 @@ const ALL_KANJI_TARGETS = {
       "target": "組み合わせ",
       "answer": "組み合わせ",
       "reading": "くみあわせ"
+    },
+    {
+      "target": "色",
+      "answer": "色",
+      "reading": "いろ"
     }
   ],
   "293": [
@@ -2891,6 +3371,11 @@ const ALL_KANJI_TARGETS = {
       "target": "意味",
       "answer": "意味",
       "reading": "いみ"
+    },
+    {
+      "target": "知る",
+      "answer": "知る",
+      "reading": "しる"
     }
   ],
   "294": [
@@ -2898,6 +3383,11 @@ const ALL_KANJI_TARGETS = {
       "target": "花火",
       "answer": "花火",
       "reading": "はなび"
+    },
+    {
+      "target": "見る",
+      "answer": "見る",
+      "reading": "みる"
     }
   ],
   "295": [
@@ -2905,6 +3395,11 @@ const ALL_KANJI_TARGETS = {
       "target": "毛筆",
       "answer": "毛筆",
       "reading": "もうひつ"
+    },
+    {
+      "target": "書く",
+      "answer": "書く",
+      "reading": "かく"
     }
   ],
   "296": [
@@ -2919,6 +3414,11 @@ const ALL_KANJI_TARGETS = {
       "target": "鳴る",
       "answer": "鳴る",
       "reading": "なる"
+    },
+    {
+      "target": "汽笛",
+      "answer": "汽笛",
+      "reading": "きてき"
     }
   ],
   "298": [
@@ -2926,6 +3426,11 @@ const ALL_KANJI_TARGETS = {
       "target": "注ぐ",
       "answer": "注ぐ",
       "reading": "そそぐ"
+    },
+    {
+      "target": "お茶",
+      "answer": "お茶",
+      "reading": "おちゃ"
     }
   ],
   "299": [
@@ -2940,6 +3445,11 @@ const ALL_KANJI_TARGETS = {
       "target": "学者",
       "answer": "学者",
       "reading": "がくしゃ"
+    },
+    {
+      "target": "意見",
+      "answer": "意見",
+      "reading": "いけん"
     }
   ],
   "301": [
@@ -2947,6 +3457,11 @@ const ALL_KANJI_TARGETS = {
       "target": "勝負",
       "answer": "勝負",
       "reading": "しょうぶ"
+    },
+    {
+      "target": "兄",
+      "answer": "兄",
+      "reading": "あに"
     }
   ],
   "302": [
@@ -2954,6 +3469,11 @@ const ALL_KANJI_TARGETS = {
       "target": "広大",
       "answer": "広大",
       "reading": "こうだい"
+    },
+    {
+      "target": "土地",
+      "answer": "土地",
+      "reading": "とち"
     }
   ],
   "303": [
@@ -2968,6 +3488,11 @@ const ALL_KANJI_TARGETS = {
       "target": "間近",
       "answer": "間近",
       "reading": "まぢか"
+    },
+    {
+      "target": "見る",
+      "answer": "見る",
+      "reading": "みる"
     }
   ],
   "305": [
@@ -2975,6 +3500,11 @@ const ALL_KANJI_TARGETS = {
       "target": "入力",
       "answer": "入力",
       "reading": "にゅうりょく"
+    },
+    {
+      "target": "文字",
+      "answer": "文字",
+      "reading": "もじ"
     }
   ],
   "306": [
@@ -2989,6 +3519,11 @@ const ALL_KANJI_TARGETS = {
       "target": "帰社",
       "answer": "帰社",
       "reading": "きしゃ"
+    },
+    {
+      "target": "五時",
+      "answer": "五時",
+      "reading": "ごじ"
     }
   ],
   "308": [
@@ -2996,6 +3531,11 @@ const ALL_KANJI_TARGETS = {
       "target": "放送",
       "answer": "放送",
       "reading": "ほうそう"
+    },
+    {
+      "target": "聞く",
+      "answer": "聞く",
+      "reading": "きく"
     }
   ],
   "309": [
@@ -3003,6 +3543,11 @@ const ALL_KANJI_TARGETS = {
       "target": "勉強",
       "answer": "勉強",
       "reading": "べんきょう"
+    },
+    {
+      "target": "算数",
+      "answer": "算数",
+      "reading": "さんすう"
     }
   ],
   "310": [
@@ -3017,6 +3562,11 @@ const ALL_KANJI_TARGETS = {
       "target": "予定",
       "answer": "予定",
       "reading": "よてい"
+    },
+    {
+      "target": "遠足",
+      "answer": "遠足",
+      "reading": "えんそく"
     }
   ],
   "312": [
@@ -3024,6 +3574,11 @@ const ALL_KANJI_TARGETS = {
       "target": "近道",
       "answer": "近道",
       "reading": "ちかみち"
+    },
+    {
+      "target": "帰る",
+      "answer": "帰る",
+      "reading": "かえる"
     }
   ],
   "313": [
@@ -3031,6 +3586,11 @@ const ALL_KANJI_TARGETS = {
       "target": "通学",
       "answer": "通学",
       "reading": "つうがく"
+    },
+    {
+      "target": "電車",
+      "answer": "電車",
+      "reading": "でんしゃ"
     }
   ],
   "314": [
@@ -3038,6 +3598,11 @@ const ALL_KANJI_TARGETS = {
       "target": "商店がい",
       "answer": "商店がい",
       "reading": "しょうてんがい"
+    },
+    {
+      "target": "歩く",
+      "answer": "歩く",
+      "reading": "あるく"
     }
   ],
   "315": [
@@ -3045,6 +3610,11 @@ const ALL_KANJI_TARGETS = {
       "target": "公園",
       "answer": "公園",
       "reading": "こうえん"
+    },
+    {
+      "target": "前",
+      "answer": "前",
+      "reading": "まえ"
     }
   ],
   "316": [
@@ -3052,6 +3622,11 @@ const ALL_KANJI_TARGETS = {
       "target": "海開き",
       "answer": "海開き",
       "reading": "うみびらき"
+    },
+    {
+      "target": "日",
+      "answer": "日",
+      "reading": "ひ"
     }
   ],
   "317": [
@@ -3066,6 +3641,11 @@ const ALL_KANJI_TARGETS = {
       "target": "波",
       "answer": "波",
       "reading": "なみ"
+    },
+    {
+      "target": "高い",
+      "answer": "高い",
+      "reading": "たかい"
     }
   ],
   "319": [
@@ -3073,6 +3653,16 @@ const ALL_KANJI_TARGETS = {
       "target": "放す",
       "answer": "放す",
       "reading": "はなす"
+    },
+    {
+      "target": "魚",
+      "answer": "魚",
+      "reading": "さかな"
+    },
+    {
+      "target": "川",
+      "answer": "川",
+      "reading": "かわ"
     }
   ],
   "320": [
@@ -3087,6 +3677,11 @@ const ALL_KANJI_TARGETS = {
       "target": "勉強家",
       "answer": "勉強家",
       "reading": "べんきょうか"
+    },
+    {
+      "target": "兄",
+      "answer": "兄",
+      "reading": "あに"
     }
   ],
   "322": [
@@ -3094,6 +3689,11 @@ const ALL_KANJI_TARGETS = {
       "target": "入港",
       "answer": "入港",
       "reading": "にゅうこう"
+    },
+    {
+      "target": "船",
+      "answer": "船",
+      "reading": "ふね"
     }
   ],
   "323": [
@@ -3101,6 +3701,11 @@ const ALL_KANJI_TARGETS = {
       "target": "勝手",
       "answer": "勝手",
       "reading": "かって"
+    },
+    {
+      "target": "決める",
+      "answer": "決める",
+      "reading": "きめる"
     }
   ],
   "324": [
@@ -3108,6 +3713,11 @@ const ALL_KANJI_TARGETS = {
       "target": "かん板",
       "answer": "かん板",
       "reading": "かんばん"
+    },
+    {
+      "target": "立てる",
+      "answer": "立てる",
+      "reading": "たてる"
     }
   ],
   "325": [
@@ -3122,6 +3732,11 @@ const ALL_KANJI_TARGETS = {
       "target": "石油",
       "answer": "石油",
       "reading": "せきゆ"
+    },
+    {
+      "target": "使う",
+      "answer": "使う",
+      "reading": "つかう"
     }
   ],
   "327": [
@@ -3129,6 +3744,11 @@ const ALL_KANJI_TARGETS = {
       "target": "波風",
       "answer": "波風",
       "reading": "なみかぜ"
+    },
+    {
+      "target": "立つ",
+      "answer": "立つ",
+      "reading": "たつ"
     }
   ],
   "328": [
@@ -3157,6 +3777,11 @@ const ALL_KANJI_TARGETS = {
       "target": "両親",
       "answer": "両親",
       "reading": "りょうしん"
+    },
+    {
+      "target": "話す",
+      "answer": "話す",
+      "reading": "はなす"
     }
   ],
   "332": [
@@ -3164,6 +3789,11 @@ const ALL_KANJI_TARGETS = {
       "target": "休業",
       "answer": "休業",
       "reading": "きゅうぎょう"
+    },
+    {
+      "target": "店",
+      "answer": "店",
+      "reading": "みせ"
     }
   ],
   "333": [
@@ -3171,6 +3801,11 @@ const ALL_KANJI_TARGETS = {
       "target": "門柱",
       "answer": "門柱",
       "reading": "もんちゅう"
+    },
+    {
+      "target": "家",
+      "answer": "家",
+      "reading": "いえ"
     }
   ],
   "334": [
@@ -3185,6 +3820,11 @@ const ALL_KANJI_TARGETS = {
       "target": "負ける",
       "answer": "負ける",
       "reading": "まける"
+    },
+    {
+      "target": "白組",
+      "answer": "白組",
+      "reading": "しろぐみ"
     }
   ],
   "336": [
@@ -3213,6 +3853,11 @@ const ALL_KANJI_TARGETS = {
       "target": "注文",
       "answer": "注文",
       "reading": "ちゅうもん"
+    },
+    {
+      "target": "本",
+      "answer": "本",
+      "reading": "ほん"
     }
   ],
   "340": [
@@ -3234,6 +3879,11 @@ const ALL_KANJI_TARGETS = {
       "target": "習字",
       "answer": "習字",
       "reading": "しゅうじ"
+    },
+    {
+      "target": "先生",
+      "answer": "先生",
+      "reading": "せんせい"
     }
   ],
   "343": [
@@ -3241,6 +3891,11 @@ const ALL_KANJI_TARGETS = {
       "target": "着く",
       "answer": "着く",
       "reading": "つく"
+    },
+    {
+      "target": "学校",
+      "answer": "学校",
+      "reading": "がっこう"
     }
   ],
   "344": [
@@ -3248,6 +3903,11 @@ const ALL_KANJI_TARGETS = {
       "target": "長旅",
       "answer": "長旅",
       "reading": "ながたび"
+    },
+    {
+      "target": "出る",
+      "answer": "出る",
+      "reading": "でる"
     }
   ],
   "345": [
@@ -3255,6 +3915,11 @@ const ALL_KANJI_TARGETS = {
       "target": "動く",
       "answer": "動く",
       "reading": "うごく"
+    },
+    {
+      "target": "電車",
+      "answer": "電車",
+      "reading": "でんしゃ"
     }
   ],
   "346": [
@@ -3269,6 +3934,11 @@ const ALL_KANJI_TARGETS = {
       "target": "使う",
       "answer": "使う",
       "reading": "つかう"
+    },
+    {
+      "target": "お金",
+      "answer": "お金",
+      "reading": "おかね"
     }
   ],
   "348": [
@@ -3276,6 +3946,11 @@ const ALL_KANJI_TARGETS = {
       "target": "悪い",
       "answer": "悪い",
       "reading": "わるい"
+    },
+    {
+      "target": "思う",
+      "answer": "思う",
+      "reading": "おもう"
     }
   ],
   "349": [
@@ -3297,6 +3972,11 @@ const ALL_KANJI_TARGETS = {
       "target": "話題",
       "answer": "話題",
       "reading": "わだい"
+    },
+    {
+      "target": "楽しい",
+      "answer": "楽しい",
+      "reading": "たのしい"
     }
   ],
   "352": [
@@ -3304,6 +3984,11 @@ const ALL_KANJI_TARGETS = {
       "target": "決める",
       "answer": "決める",
       "reading": "きめる"
+    },
+    {
+      "target": "当番",
+      "answer": "当番",
+      "reading": "とうばん"
     }
   ],
   "353": [
@@ -3311,6 +3996,11 @@ const ALL_KANJI_TARGETS = {
       "target": "行事",
       "answer": "行事",
       "reading": "ぎょうじ"
+    },
+    {
+      "target": "学校",
+      "answer": "学校",
+      "reading": "がっこう"
     }
   ],
   "354": [
@@ -3318,6 +4008,11 @@ const ALL_KANJI_TARGETS = {
       "target": "服そう",
       "answer": "服そう",
       "reading": "ふくそう"
+    },
+    {
+      "target": "夏",
+      "answer": "夏",
+      "reading": "なつ"
     }
   ],
   "355": [
@@ -3325,6 +4020,11 @@ const ALL_KANJI_TARGETS = {
       "target": "台所",
       "answer": "台所",
       "reading": "だいどころ"
+    },
+    {
+      "target": "家",
+      "answer": "家",
+      "reading": "いえ"
     }
   ],
   "356": [
@@ -3332,6 +4032,11 @@ const ALL_KANJI_TARGETS = {
       "target": "有る",
       "answer": "有る",
       "reading": "ある"
+    },
+    {
+      "target": "力",
+      "answer": "力",
+      "reading": "ちから"
     }
   ],
   "357": [
@@ -3339,6 +4044,11 @@ const ALL_KANJI_TARGETS = {
       "target": "時間",
       "answer": "時間",
       "reading": "じかん"
+    },
+    {
+      "target": "水泳",
+      "answer": "水泳",
+      "reading": "すいえい"
     }
   ],
   "358": [
@@ -3346,6 +4056,11 @@ const ALL_KANJI_TARGETS = {
       "target": "生物",
       "answer": "生物",
       "reading": "せいぶつ"
+    },
+    {
+      "target": "地球",
+      "answer": "地球",
+      "reading": "ちきゅう"
     }
   ],
   "359": [
@@ -3353,6 +4068,11 @@ const ALL_KANJI_TARGETS = {
       "target": "大昔",
       "answer": "大昔",
       "reading": "おおむかし"
+    },
+    {
+      "target": "本",
+      "answer": "本",
+      "reading": "ほん"
     }
   ],
   "360": [
@@ -3360,6 +4080,11 @@ const ALL_KANJI_TARGETS = {
       "target": "横がお",
       "answer": "横がお",
       "reading": "よこがお"
+    },
+    {
+      "target": "兄",
+      "answer": "兄",
+      "reading": "あに"
     }
   ],
   "361": [
@@ -3367,6 +4092,11 @@ const ALL_KANJI_TARGETS = {
       "target": "予算",
       "answer": "予算",
       "reading": "よさん"
+    },
+    {
+      "target": "国",
+      "answer": "国",
+      "reading": "くに"
     }
   ],
   "362": [
@@ -3374,6 +4104,11 @@ const ALL_KANJI_TARGETS = {
       "target": "送る",
       "answer": "送る",
       "reading": "おくる"
+    },
+    {
+      "target": "家",
+      "answer": "家",
+      "reading": "いえ"
     }
   ],
   "363": [
@@ -3381,6 +4116,11 @@ const ALL_KANJI_TARGETS = {
       "target": "下る",
       "answer": "下る",
       "reading": "くだる"
+    },
+    {
+      "target": "坂道",
+      "answer": "坂道",
+      "reading": "さかみち"
     }
   ],
   "364": [
@@ -3388,6 +4128,11 @@ const ALL_KANJI_TARGETS = {
       "target": "悲しい",
       "answer": "悲しい",
       "reading": "かなしい"
+    },
+    {
+      "target": "物語",
+      "answer": "物語",
+      "reading": "ものがたり"
     }
   ],
   "365": [
@@ -3395,6 +4140,11 @@ const ALL_KANJI_TARGETS = {
       "target": "向こう",
       "answer": "向こう",
       "reading": "むこう"
+    },
+    {
+      "target": "山",
+      "answer": "山",
+      "reading": "やま"
     }
   ],
   "366": [
@@ -3402,6 +4152,11 @@ const ALL_KANJI_TARGETS = {
       "target": "川岸",
       "answer": "川岸",
       "reading": "かわぎし"
+    },
+    {
+      "target": "歩く",
+      "answer": "歩く",
+      "reading": "あるく"
     }
   ],
   "367": [
@@ -3416,6 +4171,11 @@ const ALL_KANJI_TARGETS = {
       "target": "感心",
       "answer": "感心",
       "reading": "かんしん"
+    },
+    {
+      "target": "弟",
+      "answer": "弟",
+      "reading": "おとうと"
     }
   ],
   "369": [
@@ -3423,6 +4183,11 @@ const ALL_KANJI_TARGETS = {
       "target": "対話",
       "answer": "対話",
       "reading": "たいわ"
+    },
+    {
+      "target": "親子",
+      "answer": "親子",
+      "reading": "おやこ"
     }
   ],
   "370": [
@@ -3451,6 +4216,11 @@ const ALL_KANJI_TARGETS = {
       "target": "筆記",
       "answer": "筆記",
       "reading": "ひっき"
+    },
+    {
+      "target": "用具",
+      "answer": "用具",
+      "reading": "ようぐ"
     }
   ],
   "374": [
@@ -3465,6 +4235,11 @@ const ALL_KANJI_TARGETS = {
       "target": "文章",
       "answer": "文章",
       "reading": "ぶんしょう"
+    },
+    {
+      "target": "作る",
+      "answer": "作る",
+      "reading": "つくる"
     }
   ],
   "376": [
@@ -3479,6 +4254,11 @@ const ALL_KANJI_TARGETS = {
       "target": "空港",
       "answer": "空港",
       "reading": "くうこう"
+    },
+    {
+      "target": "行く",
+      "answer": "行く",
+      "reading": "いく"
     }
   ],
   "378": [
@@ -3493,6 +4273,11 @@ const ALL_KANJI_TARGETS = {
       "target": "勝つ",
       "answer": "勝つ",
       "reading": "かつ"
+    },
+    {
+      "target": "試合",
+      "answer": "試合",
+      "reading": "しあい"
     }
   ],
   "380": [
